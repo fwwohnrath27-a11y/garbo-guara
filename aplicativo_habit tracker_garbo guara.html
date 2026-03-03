@@ -892,5 +892,31 @@ document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('clic
 const tabMap={home:'screen-home',habitos:'screen-habitos',progresso:'screen-progresso',perfil:'screen-perfil'};
 function showTab(tab){Object.entries(tabMap).forEach(([k,sid])=>{const s=document.getElementById(sid);const n=document.getElementById('nav-'+k);if(k===tab){s.classList.add('active');if(n)n.classList.add('active');}else{s.classList.remove('active');if(n)n.classList.remove('active');}});document.getElementById('fab-add-habit').classList.toggle('visible',tab==='habitos');if(tab==='home')renderHome();if(tab==='habitos'){habViewDate=new Date();renderHabitos();}if(tab==='progresso'){selectedCalDay=null;calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderProgresso();}if(tab==='perfil')renderPerfil();}
 </script>
+  <script type="module">
+  // 1. Importando o básico e as ferramentas de Cadastro e Banco de Dados
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. Suas credenciais do Garbo Guará
+  const firebaseConfig = {
+    apiKey: "AIzaSyD0zGjoMcVYFncsuMrT7zdNaBVPkmR3B_g",
+    authDomain: "garbo-guara.firebaseapp.com",
+    projectId: "garbo-guara",
+    storageBucket: "garbo-guara.firebasestorage.app",
+    messagingSenderId: "857932617338",
+    appId: "1:857932617338:web:3faee176ca7d5436a78dc3",
+    measurementId: "G-1LJR2FZED8"
+  };
+
+  // 3. Inicializando o Firebase
+  const app = initializeApp(firebaseConfig);
+  
+  // 4. Criando os "atalhos" para usar no seu app
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  console.log("Firebase do Garbo Guará conectado com sucesso!");
+</script>
 </body>
 </html>
