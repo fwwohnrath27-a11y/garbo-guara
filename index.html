@@ -632,6 +632,9 @@ let saveTimeout = null;
 window.loginGoogle = async function() {
   try {
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      client_id: '857932617338-j9325i0o3hclfd4m9hfi1iaphgnm3lis.apps.googleusercontent.com'
+    });
     await signInWithRedirect(auth, provider);
   } catch(e) {
     showToast('❗ Erro ao entrar. Tente novamente.');
