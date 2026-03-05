@@ -103,7 +103,7 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
 /* SLIDES */
 .slides-container{flex:1;overflow:hidden;position:relative}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px 32px;opacity:0;transform:translateX(60px);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);pointer-events:none}
-.slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all}.screen:not(.active) .slide.active{pointer-events:none}
 .slide.exit-left{opacity:0;transform:translateX(-60px)}
 .slide-emoji{font-size:72px;margin-bottom:28px;filter:drop-shadow(0 8px 20px rgba(0,0,0,0.3));animation:floatEmoji 3s ease-in-out infinite}
 @keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
