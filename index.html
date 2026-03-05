@@ -608,7 +608,7 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -632,13 +632,14 @@ let saveTimeout = null;
 window.loginGoogle = async function() {
   try {
     const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({
-      client_id: '857932617338-j9325i0o3hclfd4m9hfi1iaphgnm3lis.apps.googleusercontent.com'
-    });
-    await signInWithRedirect(auth, provider);
+    await signInWithPopup(auth, provider);
   } catch(e) {
-    showToast('❗ Erro ao entrar. Tente novamente.');
-    console.error(e);
+    if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user') {
+      await signInWithRedirect(auth, provider);
+    } else {
+      showToast('❗ Erro ao entrar. Tente novamente.');
+      console.error(e);
+    }
   }
 };
 
