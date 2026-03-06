@@ -423,6 +423,13 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
 .consist-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--orange),#b8641a);transition:width 0.6s ease}
 .consist-label{display:flex;justify-content:space-between;font-size:11px;color:var(--khaki)}
 
+/* MOMENTUM */
+.momentum-item{display:flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:10px 14px}
+.momentum-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.momentum-avg-card{text-align:center;padding:16px 0 12px}
+.momentum-avg-val{font-family:'Permanent Marker',cursive;font-size:44px;line-height:1;margin-bottom:2px}
+.momentum-avg-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+
 /* NOTIFICATION MODAL */
 .notif-modal-body{padding:0 24px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
 .notif-icon{font-size:56px;margin-top:8px}
@@ -882,6 +889,8 @@ function afterLogin() {
     goToScreen('screen-home');
     document.getElementById('bottom-nav').classList.add('visible');
     renderHome();
+    migrateLegacyStreaks();
+    applyMomentumDecay();
     if(appDB.profile.notificationsEnabled === undefined) {
       setTimeout(() => openModal('modal-notif-permission'), 1200);
     } else if(appDB.profile.notificationsEnabled) {
@@ -974,7 +983,7 @@ window.finishOnboarding=function(){appDB.profile.onboardingDone=true;if(appDB.ha
 const CHALLENGES=[{title:'Hidratação Perfeita',desc:'Complete sua meta de água hoje.',xp:50},{title:'Manhã de Ouro',desc:'Complete todos os hábitos antes do meio-dia.',xp:60},{title:'Noite de Qualidade',desc:'Planeje dormir pelo menos 7 horas esta noite.',xp:40},{title:'Zero a Zero',desc:'Marque todos os hábitos do dia sem exceção.',xp:80},{title:'Sequência Bônus',desc:'Mantenha todos os seus streaks ativos hoje.',xp:45}];
 window.renderHome=function(){const hr=new Date().getHours();document.getElementById('home-greeting').textContent=hr<12?'Bom dia,':hr<18?'Boa tarde,':'Boa noite,';document.getElementById('home-name').textContent=appDB.profile.name||'Campeão';document.getElementById('home-date').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});calcWeekStats();updateWaterUI();const d=new Date();const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);const ch=CHALLENGES[doy%CHALLENGES.length];document.getElementById('challenge-title').textContent=ch.title;document.getElementById('challenge-desc').textContent=ch.desc;document.getElementById('challenge-xp-label').textContent='+'+ch.xp+' XP';const today=todayKey();const btn=document.getElementById('btn-challenge');if(appDB.logs[today]&&appDB.logs[today].challengeDone){btn.textContent='✓ Concluído hoje';btn.disabled=true;btn.style.opacity='0.5';}else{btn.textContent='Marcar como feito';btn.disabled=false;btn.style.opacity='1';}const bm=document.getElementById('checkin-banner-morning');const morningAvail=hr>=0&&hr<12;if(appDB.checkins[today]&&appDB.checkins[today].morning){bm.style.borderColor='rgba(61,245,160,0.3)';bm.style.opacity='';bm.style.cursor='';bm.querySelector('.checkin-banner-title').textContent='✓ Check-in Matinal feito';bm.querySelector('.checkin-banner-sub').textContent='Clique para editar';}else if(!morningAvail){bm.style.borderColor='';bm.style.opacity='0.45';bm.style.cursor='default';bm.querySelector('.checkin-banner-title').textContent='Check-in Matinal';bm.querySelector('.checkin-banner-sub').textContent='Disponível das 0h às 12h';}else{bm.style.borderColor='';bm.style.opacity='';bm.style.cursor='';bm.querySelector('.checkin-banner-title').textContent='Check-in Matinal';bm.querySelector('.checkin-banner-sub').textContent='Como você acordou hoje?';}const be=document.getElementById('checkin-banner-evening');const eveningAvail=hr>=18;if(appDB.checkins[today]&&appDB.checkins[today].evening){be.style.borderColor='rgba(168,152,204,0.4)';be.style.opacity='';be.style.cursor='';be.querySelector('.checkin-banner-title').textContent='✓ Check-in Noturno feito';be.querySelector('.checkin-banner-sub').textContent='Clique para editar';}else if(!eveningAvail){be.style.borderColor='';be.style.opacity='0.45';be.style.cursor='default';be.querySelector('.checkin-banner-title').textContent='Check-in Noturno';be.querySelector('.checkin-banner-sub').textContent='Disponível a partir das 18h';}else{be.style.borderColor='';be.style.opacity='';be.style.cursor='';be.querySelector('.checkin-banner-title').textContent='Check-in Noturno';be.querySelector('.checkin-banner-sub').textContent='Como foi o seu dia?';}renderHomeHabits();};
 function calcWeekStats(){let sS=0,eS=0,mS=0,n=0;for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ci=appDB.checkins[dateKey(d)];if(ci&&ci.morning){if(ci.morning.sleep)sS+=ci.morning.sleep;if(ci.morning.energy)eS+=ci.morning.energy;if(ci.morning.mood)mS+=ci.morning.mood;n++;}}document.getElementById('stat-sleep').textContent=n?(sS/n).toFixed(1):'—';document.getElementById('stat-energy').textContent=n?(eS/n).toFixed(1):'—';document.getElementById('stat-mood').textContent=n?(mS/n).toFixed(1):'—';}
-window.renderHomeHabits=function(){const c=document.getElementById('home-habits-preview');c.innerHTML='';const today=todayKey();const tl=(appDB.logs[today]&&appDB.logs[today].habits)||{};const visible=appDB.habits.filter(h=>h.active&&isHabitDue(h));if(!visible.length){c.innerHTML='<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:var(--khaki);text-align:center;padding:16px">Nenhum hábito para hoje.</div>';return;}visible.slice(0,4).forEach((h,i)=>{const done=!!tl[h.id];const streak=calcStreak(h.id);const div=document.createElement('div');div.className='habit-row'+(done?' done':'');div.style.animationDelay=(i*0.05)+'s';div.innerHTML=`<div class="habit-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="habit-info-wrap"><div class="habit-row-name">${h.emoji} ${h.name}</div><div class="habit-row-meta ${streak>=3?'hot':''}">${streak>0?'🔥 '+streak+' dias':'—'}${h.time?' · ⏰ '+h.time:''}</div></div><button class="habit-edit-btn" onclick="openHabitForm('${h.id}',event)">⋮</button>`;c.appendChild(div);});if(visible.length>4){const m=document.createElement('div');m.className='habits-preview-more';m.textContent='+ '+(visible.length-4)+' mais';m.onclick=()=>showTab('habitos');c.appendChild(m);}};
+window.renderHomeHabits=function(){const c=document.getElementById('home-habits-preview');c.innerHTML='';const today=todayKey();const tl=(appDB.logs[today]&&appDB.logs[today].habits)||{};const visible=appDB.habits.filter(h=>h.active&&isHabitDue(h));if(!visible.length){c.innerHTML='<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:var(--khaki);text-align:center;padding:16px">Nenhum hábito para hoje.</div>';return;}visible.slice(0,4).forEach((h,i)=>{const done=!!tl[h.id];const sc=h.momentumScore||0;const mCol=getMomentumColor(sc);const mLbl=getMomentumLabel(sc);const div=document.createElement('div');div.className='habit-row'+(done?' done':'');div.style.animationDelay=(i*0.05)+'s';div.innerHTML=`<div class="habit-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="habit-info-wrap"><div class="habit-row-name">${h.emoji} ${h.name}</div><div class="habit-row-meta"><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${mCol};border-radius:99px;transition:width 0.4s ease"></div></div><span style="font-size:9px;font-weight:700;color:${mCol}">${sc}</span><span style="font-size:9px;color:var(--khaki)">— ${mLbl}</span></div>${h.time?`<div style="font-size:10px;color:var(--khaki);margin-top:1px">⏰ ${h.time}</div>`:''}</div></div><button class="habit-edit-btn" onclick="openHabitForm('${h.id}',event)">⋮</button>`;c.appendChild(div);});if(visible.length>4){const m=document.createElement('div');m.className='habits-preview-more';m.textContent='+ '+(visible.length-4)+' mais';m.onclick=()=>showTab('habitos');c.appendChild(m);}};
 window.addWater=function(amt){const today=todayKey();if(!appDB.water[today])appDB.water[today]=0;appDB.water[today]=Math.round((appDB.water[today]+amt)*100)/100;saveDB();updateWaterUI();showToast('💧 +'+Math.round(amt*1000)+'ml');};
 window.updateWaterUI=function(){const today=todayKey();const cur=appDB.water[today]||0;const goal=appDB.profile.recWater||2.5;const pct=Math.min(100,Math.round((cur/goal)*100));document.getElementById('water-current').textContent=cur?cur.toFixed(2).replace(/\.?0+$/,''):'0';document.getElementById('water-goal-display').textContent=(appDB.profile.recWater||2.5).toFixed(1);document.getElementById('water-fill').style.width=pct+'%';};
 window.completeChallenge=function(){const today=todayKey();if(!appDB.logs[today])appDB.logs[today]={};if(appDB.logs[today].challengeDone)return;appDB.logs[today].challengeDone=true;const d=new Date();const ch=CHALLENGES[Math.floor((d-new Date(d.getFullYear(),0,0))/86400000)%CHALLENGES.length];appDB.xp+=ch.xp;saveDB();const btn=document.getElementById('btn-challenge');btn.textContent='✓ Concluído hoje';btn.disabled=true;btn.style.opacity='0.5';showToast('🏆 +'+ch.xp+' XP!',3000);};
@@ -988,12 +997,111 @@ window.saveCheckin=function(){const today=todayKey();if(!appDB.checkins[today])a
 
 // HABITS
 window.isHabitDue=function(h,dateObj){const d=dateObj||new Date();if(h.freq==='diaria')return true;if(h.freq==='semanal'){if(!h.weekdays||!h.weekdays.length)return true;return h.weekdays.includes(d.getDay());}if(h.freq==='quinzenal'){const s=new Date(h.createdAt||Date.now());const diff=Math.floor((d-s)/86400000);return diff%14===0||diff===0;}if(h.freq==='mensal'){const s=new Date(h.createdAt||Date.now());return d.getDate()===s.getDate();}return true;};
-window.toggleHabit=function(id,e){if(e)e.stopPropagation();const today=todayKey();if(!appDB.logs[today])appDB.logs[today]={};if(!appDB.logs[today].habits)appDB.logs[today].habits={};const l=appDB.logs[today].habits;const h=appDB.habits.find(x=>x.id===id);if(l[id]){delete l[id];showToast('Desmarcado');}else{l[id]=true;appDB.xp+=(h?h.xp:10);showToast('✓ +'+(h?h.xp:10)+' XP');}saveDB();renderHomeHabits();renderHabitos();};
-window.calcStreak=function(hid){let s=0;const d=new Date();d.setDate(d.getDate()-1);for(let i=0;i<365;i++){const key=dateKey(d);if(appDB.logs[key]&&appDB.logs[key].habits&&appDB.logs[key].habits[hid]){s++;d.setDate(d.getDate()-1);}else break;}return s;};
+// ══════════════════════════════════
+//  MOMENTUM ENGINE
+// ══════════════════════════════════
+function getMomentumLabel(s){if(s<=20)return'Construindo';if(s<=40)return'Ganhando força';if(s<=60)return'Em crescimento';if(s<=80)return'Sólido';return'Automático';}
+function getMomentumColor(s){if(s<=20)return'#6b6b6b';if(s<=40)return'#c45e00';if(s<=60)return'#e07b00';if(s<=80)return'#3a8a5c';return'#2d7fc1';}
+function calcMomentumIncrease(s){if(s<20)return 12;if(s<40)return 9;if(s<60)return 7;if(s<80)return 5;return 3;}
+function calcMomentumDecay(s){if(s>80)return 8;if(s>50)return 6;if(s>20)return 4;return 2;}
+function getMinMomentum(hid){const keys=Object.keys(appDB.logs).filter(k=>appDB.logs[k]&&appDB.logs[k].habits);const h=appDB.habits.find(x=>x.id===hid);if(!h)return 0;const days=keys.filter(k=>{try{return isHabitDue(h,new Date(k+'T12:00:00'));}catch{return false;}}).length;if(days>=60)return 20;if(days>=30)return 10;return 0;}
+
+function migrateLegacyStreaks(){
+  const needs=appDB.habits.some(h=>h.momentumScore===undefined);
+  if(!needs)return;
+  appDB.habits.forEach(h=>{
+    if(h.momentumScore!==undefined)return;
+    const s=h.streak||calcStreak(h.id);
+    h.momentumScore=s>=30?80:s>=14?60:s>=7?40:s>=1?20:0;
+    h.momentumHistory=[];h.momentumMilestones=[];h.lastActiveDate='';
+  });
+  saveDB();
+}
+
+function applyMomentumDecay(){
+  const last=appDB.lastOpenDate||todayKey();
+  const today=todayKey();
+  appDB.lastOpenDate=today;
+  if(last===today)return;
+  const lastDate=new Date(last+'T12:00:00');
+  const todayDate=new Date(today+'T12:00:00');
+  const daysDiff=Math.floor((todayDate-lastDate)/86400000);
+  if(daysDiff<=0){saveDB();return;}
+  let decayApplied=false;
+  for(let i=1;i<daysDiff;i++){
+    const md=new Date(lastDate);md.setDate(md.getDate()+i);
+    const mk=dateKey(md);
+    appDB.habits.forEach(h=>{
+      if(!h.active||!isHabitDue(h,md))return;
+      if(appDB.logs[mk]&&appDB.logs[mk].habits&&appDB.logs[mk].habits[h.id])return;
+      const cur=h.momentumScore||0;
+      const min=getMinMomentum(h.id);
+      h.momentumScore=Math.max(min,cur-calcMomentumDecay(cur));
+      decayApplied=true;
+    });
+  }
+  saveDB();
+  if(decayApplied){
+    if(daysDiff>=3)showToast('Bem-vindo de volta. Seu momentum ainda tem força para recuperar.',4000);
+    else showToast('Momentum em recuperação. Um retorno hoje acelera tudo.',3500);
+  }
+}
+
+window.toggleHabit=function(id,e){
+  if(e)e.stopPropagation();
+  const today=todayKey();
+  if(!appDB.logs[today])appDB.logs[today]={};
+  if(!appDB.logs[today].habits)appDB.logs[today].habits={};
+  const l=appDB.logs[today].habits;
+  const h=appDB.habits.find(x=>x.id===id);
+  if(l[id]){
+    delete l[id];
+    showToast('Desmarcado');
+  }else{
+    l[id]=true;
+    appDB.xp+=(h?h.xp:10);
+    if(h){
+      const oldScore=h.momentumScore||0;
+      const oldLabel=getMomentumLabel(oldScore);
+      const inc=calcMomentumIncrease(oldScore);
+      const newScore=Math.min(100,oldScore+inc);
+      const newLabel=getMomentumLabel(newScore);
+      h.momentumScore=newScore;
+      h.lastActiveDate=today;
+      if(!h.momentumHistory)h.momentumHistory=[];
+      h.momentumHistory.push({date:today,score:newScore});
+      if(h.momentumHistory.length>30)h.momentumHistory.shift();
+      // Milestones
+      if(!h.momentumMilestones)h.momentumMilestones=[];
+      const maxHist=Math.max(0,...(h.momentumHistory.map(x=>x.score)));
+      let celebrated=false;
+      [[40,'Esse hábito está ganhando raiz. 💪'],[80,'Quase automático. Continue.'],[100,'Hábito sólido. Você construiu isso.']].forEach(([ms,msg])=>{
+        if(newScore>=ms&&oldScore<ms&&!h.momentumMilestones.find(m=>m.score===ms)){
+          h.momentumMilestones.push({score:ms,date:today});
+          setTimeout(()=>showToast(msg,3500),400);
+          celebrated=true;
+        }
+      });
+      // Return after 3+ days absent
+      if(!celebrated&&h.lastActiveDate&&h.lastActiveDate!==today){
+        const lastActive=new Date(h.lastActiveDate+'T12:00:00');
+        const daysAway=Math.floor((new Date(today+'T12:00:00')-lastActive)/86400000);
+        if(daysAway>=3){setTimeout(()=>showToast('Isso. É aqui que a resiliência se constrói.',3000),400);celebrated=true;}
+      }
+      if(!celebrated){
+        if(newScore===100)showToast('Momentum no máximo 🔵',2000);
+        else if(newLabel!==oldLabel)showToast('⬆ Momentum: '+newLabel+'!',2500);
+        else showToast('+'+inc+' momentum',1800);
+      }
+    }else{showToast('✓ +10 XP');}
+  }
+  saveDB();renderHomeHabits();renderHabitos();
+};
+function calcStreak(hid){let s=0;const d=new Date();d.setDate(d.getDate()-1);for(let i=0;i<365;i++){const key=dateKey(d);if(appDB.logs[key]&&appDB.logs[key].habits&&appDB.logs[key].habits[hid]){s++;d.setDate(d.getDate()-1);}else break;}return s;}
 
 // HÁBITOS SCREEN
 window.renderHabitos=function(){renderHabitsList();};
-function renderHabitsList(){const body=document.getElementById('hab-body');body.innerHTML='';const key=todayKey();const todayLog=(appDB.logs[key]&&appDB.logs[key].habits)||{};const todayDate=new Date();const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,todayDate));const doneCount=due.filter(h=>todayLog[h.id]).length;if(due.length>0){document.getElementById('hab-summary-text').innerHTML=`<strong>${doneCount}</strong> de <strong>${due.length}</strong> concluídos`;document.getElementById('hab-prog-fill').style.width=Math.round((doneCount/due.length)*100)+'%';}else{document.getElementById('hab-summary-text').textContent='Nenhum hábito para este dia';document.getElementById('hab-prog-fill').style.width='0%';}if(!appDB.habits.length){body.innerHTML=`<div class="hab-empty"><div class="hab-empty-icon">🎯</div><div class="hab-empty-title">Nenhum hábito ainda</div><div class="hab-empty-sub">Toque em + para criar seu primeiro hábito.</div><button class="btn btn-primary" style="width:auto;margin-top:8px" onclick="openHabitForm(null)">＋ Criar hábito</button></div>`;return;}const byCat={};appDB.habits.forEach(h=>{const cat=h.cat||'outros';if(!byCat[cat])byCat[cat]=[];byCat[cat].push(h);});Object.entries(byCat).forEach(([cat,habits])=>{const cfg=CAT_CONFIG[cat]||{label:cat,emoji:'📌',color:'var(--khaki)'};const hdr=document.createElement('div');hdr.className='hab-cat-header';hdr.innerHTML=`${cfg.emoji} ${cfg.label}`;hdr.style.color=cfg.color;body.appendChild(hdr);habits.forEach((h,idx)=>{const isDue=h.active&&isHabitDue(h,todayDate);const done=!!todayLog[h.id];const streak=calcStreak(h.id);const catCfg=CAT_CONFIG[h.cat]||{label:h.cat,color:'var(--khaki)'};const row=document.createElement('div');row.className='full-habit-row'+(done?' done':'')+((!h.active||!isDue)?' inactive':'');row.style.animationDelay=(idx*0.04)+'s';row.style.borderLeftColor=done?h.color:'transparent';row.innerHTML=`<div class="fh-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="fh-info"><div class="fh-name">${h.emoji||'📌'} ${h.name}</div><div class="fh-meta"><span class="fh-tag" style="border-color:${catCfg.color}33;color:${catCfg.color}">${catCfg.label}</span>${streak>=1?`<span class="fh-streak">🔥 ${streak} dias</span>`:''} ${h.time?`<span class="fh-time">⏰ ${h.time}</span>`:''}<span class="fh-freq">${FREQ_LABEL[h.freq]||'Diária'}</span>${!h.active?'<span class="fh-freq" style="color:var(--terra)">Inativo</span>':''}${h.active&&!isDue?'<span class="fh-freq" style="color:var(--khaki)">Fora do ciclo</span>':''}</div></div><button class="fh-edit" onclick="openHabitForm('${h.id}',event)">⋮</button>`;body.appendChild(row);});});}
+function renderHabitsList(){const body=document.getElementById('hab-body');body.innerHTML='';const key=todayKey();const todayLog=(appDB.logs[key]&&appDB.logs[key].habits)||{};const todayDate=new Date();const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,todayDate));const doneCount=due.filter(h=>todayLog[h.id]).length;if(due.length>0){document.getElementById('hab-summary-text').innerHTML=`<strong>${doneCount}</strong> de <strong>${due.length}</strong> concluídos`;document.getElementById('hab-prog-fill').style.width=Math.round((doneCount/due.length)*100)+'%';}else{document.getElementById('hab-summary-text').textContent='Nenhum hábito para este dia';document.getElementById('hab-prog-fill').style.width='0%';}if(!appDB.habits.length){body.innerHTML=`<div class="hab-empty"><div class="hab-empty-icon">🎯</div><div class="hab-empty-title">Nenhum hábito ainda</div><div class="hab-empty-sub">Toque em + para criar seu primeiro hábito.</div><button class="btn btn-primary" style="width:auto;margin-top:8px" onclick="openHabitForm(null)">＋ Criar hábito</button></div>`;return;}const byCat={};appDB.habits.forEach(h=>{const cat=h.cat||'outros';if(!byCat[cat])byCat[cat]=[];byCat[cat].push(h);});Object.entries(byCat).forEach(([cat,habits])=>{const cfg=CAT_CONFIG[cat]||{label:cat,emoji:'📌',color:'var(--khaki)'};const hdr=document.createElement('div');hdr.className='hab-cat-header';hdr.innerHTML=`${cfg.emoji} ${cfg.label}`;hdr.style.color=cfg.color;body.appendChild(hdr);habits.forEach((h,idx)=>{const isDue=h.active&&isHabitDue(h,todayDate);const done=!!todayLog[h.id];const sc=h.momentumScore||0;const mCol=getMomentumColor(sc);const mLbl=getMomentumLabel(sc);const catCfg=CAT_CONFIG[h.cat]||{label:h.cat,color:'var(--khaki)'};const row=document.createElement('div');row.className='full-habit-row'+(done?' done':'')+((!h.active||!isDue)?' inactive':'');row.style.animationDelay=(idx*0.04)+'s';row.style.borderLeftColor=done?h.color:'transparent';row.innerHTML=`<div class="fh-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="fh-info"><div class="fh-name">${h.emoji||'📌'} ${h.name}</div><div style="display:flex;align-items:center;gap:6px;margin:4px 0 3px"><div style="flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${mCol};border-radius:99px;transition:width 0.4s ease"></div></div><span style="font-size:9px;font-weight:700;color:${mCol}">${sc}</span><span style="font-size:9px;color:var(--khaki)">— ${mLbl}</span></div><div class="fh-meta"><span class="fh-tag" style="border-color:${catCfg.color}33;color:${catCfg.color}">${catCfg.label}</span>${h.time?`<span class="fh-time">⏰ ${h.time}</span>`:''}<span class="fh-freq">${FREQ_LABEL[h.freq]||'Diária'}</span>${!h.active?'<span class="fh-freq" style="color:var(--terra)">Inativo</span>':''}${h.active&&!isDue?'<span class="fh-freq" style="color:var(--khaki)">Fora do ciclo</span>':''}</div></div><button class="fh-edit" onclick="openHabitForm('${h.id}',event)">⋮</button>`;body.appendChild(row);});});}
 
 // HABIT FORM
 const EMOJIS=['💧','💪','😴','📚','🧘','🏃','🥗','🍎','☀️','🎯','✍️','🧠','💊','🚴','🏋️','🎨','🎵','📖','🧹','💤','🛁','🌿','🍵','☕','🌅','🌙','⚡','🔥','🏆','❤️'];
@@ -1017,6 +1125,17 @@ window.calNav=function(dir){calMonth+=dir;if(calMonth<0){calMonth=11;calYear--;}
 window.selectDay=function(key){selectedCalDay=selectedCalDay===key?null:key;renderProgresso();};
 function buildDayDetail(key){const d=new Date(key+'T12:00:00');const ci=appDB.checkins[key]||{};const log=appDB.logs[key]||{};const habsDone=log.habits?Object.keys(log.habits):[];const wrapper=document.createElement('div');wrapper.className='day-detail';const dayName=PT_DAYS_LONG[d.getDay()];const dateLabel=`${dayName.charAt(0).toUpperCase()+dayName.slice(1)}, ${d.getDate()} de ${PT_MONTHS[d.getMonth()]}`;let badgesHTML='';if(ci.morning)badgesHTML+=`<span class="dd-badge morning">☀️ Matinal</span>`;if(ci.evening)badgesHTML+=`<span class="dd-badge evening">🌙 Noturno</span>`;if(!ci.morning&&!ci.evening&&!habsDone.length)badgesHTML+=`<span class="dd-badge">Sem registros</span>`;let html=`<div class="dd-header"><div class="dd-date">${dateLabel}</div><div style="display:flex;gap:6px">${badgesHTML}</div></div>`;if(ci.morning){const m=ci.morning;html+=`<div class="dd-section"><div class="dd-section-title">☀️ Check-in Matinal</div><div class="dd-metrics">`;if(m.sleep!=null)html+=`<div class="dd-metric"><div class="dd-metric-val">${m.sleep}h</div><div class="dd-metric-lbl">Sono</div></div>`;if(m.energy!=null)html+=`<div class="dd-metric"><div class="dd-metric-val">${m.energy}/5</div><div class="dd-metric-lbl">Energia</div></div>`;if(m.mood!=null)html+=`<div class="dd-metric"><div class="dd-metric-val">${m.mood}/5</div><div class="dd-metric-lbl">Humor</div></div>`;html+=`</div>${m.intention?`<div class="dd-text" style="margin-top:10px">"${m.intention}"</div>`:''}</div>`;}if(ci.evening){const ev=ci.evening;html+=`<div class="dd-section"><div class="dd-section-title">🌙 Check-in Noturno</div><div class="dd-metrics">`;if(ev.dayRating!=null)html+=`<div class="dd-metric"><div class="dd-metric-val">${ev.dayRating}/5</div><div class="dd-metric-lbl">Dia</div></div>`;if(ev.stress!=null)html+=`<div class="dd-metric"><div class="dd-metric-val">${ev.stress}/5</div><div class="dd-metric-lbl">Estresse</div></div>`;html+=`</div>`;if(ev.win||ev.improve){html+=`<div class="dd-win-grid">`;if(ev.win)html+=`<div class="dd-win-card win"><div class="dd-win-label">🏅 Vitória</div><div class="dd-win-text">${ev.win}</div></div>`;if(ev.improve)html+=`<div class="dd-win-card improve"><div class="dd-win-label">🔧 Melhorar</div><div class="dd-win-text">${ev.improve}</div></div>`;html+=`</div>`;}if(ev.reflection)html+=`<div class="dd-text" style="margin-top:10px">"${ev.reflection}"</div>`;html+=`</div>`;}if(appDB.habits.length){const dueHabits=appDB.habits.filter(h=>h.active&&isHabitDue(h,d));if(dueHabits.length){html+=`<div class="dd-section"><div class="dd-section-title">🎯 Hábitos do dia</div><div class="dd-hab-list">`;dueHabits.forEach(h=>{const done=habsDone.includes(h.id);html+=`<div class="dd-hab-item"><div class="dd-check ${done?'done':'miss'}">${done?'✓':'○'}</div><span style="${done?'opacity:0.5':''}">${h.emoji} ${h.name}</span></div>`;});html+=`</div></div>`;}}if(!ci.morning&&!ci.evening&&!habsDone.length)html+=`<div class="dd-empty">Nenhum registro para este dia.</div>`;wrapper.innerHTML=html;return wrapper;}
 function renderResumo(body){
+// ── Momentum ──
+const activeH=appDB.habits.filter(h=>h.active);
+const avgMom=activeH.length?Math.round(activeH.reduce((s,h)=>s+(h.momentumScore||0),0)/activeH.length):0;
+const avgCol=getMomentumColor(avgMom);const avgLbl=getMomentumLabel(avgMom);
+const sortedH=[...activeH].sort((a,b)=>(b.momentumScore||0)-(a.momentumScore||0));
+const momSec=document.createElement('div');momSec.className='card';
+let mHTML=`<div class="resumo-section-title">⚡ Momentum</div><div class="momentum-avg-card"><div class="momentum-avg-val" style="color:${avgCol}">${avgMom}</div><div class="momentum-avg-label" style="color:${avgCol}">${avgLbl}</div><div style="height:8px;background:var(--bg3);border-radius:99px;overflow:hidden;margin:0 auto 8px;max-width:220px"><div style="height:100%;width:${avgMom}%;background:${avgCol};border-radius:99px"></div></div><div style="font-family:'Crimson Pro',serif;font-size:12px;color:var(--khaki)">Momentum médio de todos os hábitos ativos</div></div>`;
+if(sortedH.length){mHTML+=`<div class="momentum-list">`;sortedH.forEach(h=>{const sc=h.momentumScore||0;const col=getMomentumColor(sc);const lbl=getMomentumLabel(sc);mHTML+=`<div class="momentum-item"><div style="font-size:16px;flex-shrink:0">${h.emoji||'📌'}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${h.name}</div><div style="display:flex;align-items:center;gap:6px;margin-top:3px"><div style="flex:1;height:4px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${col};border-radius:99px"></div></div><span style="font-size:10px;font-weight:700;color:${col}">${sc}</span></div><div style="font-size:9px;color:${col};font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-top:1px">${lbl}</div></div></div>`;});mHTML+=`</div>`;}
+const allMs=activeH.flatMap(h=>(h.momentumMilestones||[]).map(m=>({...m,hn:h.emoji+' '+h.name}))).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
+if(allMs.length){mHTML+=`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)"><div style="font-size:10px;font-weight:700;letter-spacing:0.15em;color:var(--khaki);text-transform:uppercase;margin-bottom:8px">Marcos recentes</div>`;allMs.forEach(m=>{const icon=m.score>=100?'🔵':m.score>=80?'💥':'🔥';mHTML+=`<div style="font-size:12px;color:var(--beige);padding:4px 0">${icon} <strong>${m.hn}</strong> atingiu ${m.score} · <span style="color:var(--khaki)">${m.date}</span></div>`;});mHTML+=`</div>`;}
+momSec.innerHTML=mHTML;body.appendChild(momSec);
 // ── Resumo semanal ──
 let sS=0,eS=0,mS=0,nCI=0,weekDone=0,weekTotal=0;
 for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d);const ci=appDB.checkins[k];if(ci&&ci.morning){if(ci.morning.sleep)sS+=ci.morning.sleep;if(ci.morning.energy)eS+=ci.morning.energy;if(ci.morning.mood)mS+=ci.morning.mood;nCI++;}const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,d));weekTotal+=due.length;const log=(appDB.logs[k]&&appDB.logs[k].habits)||{};weekDone+=due.filter(h=>log[h.id]).length;}
@@ -1029,11 +1148,6 @@ function buildTrend(label,valFn,maxVal,barColor){const card=document.createEleme
 body.appendChild(buildTrend('😴 Sono — últimos 7 dias',k=>{const ci=appDB.checkins[k];return ci&&ci.morning&&ci.morning.sleep!=null?ci.morning.sleep:null;},8));
 body.appendChild(buildTrend('⚡ Energia — últimos 7 dias',k=>{const ci=appDB.checkins[k];return ci&&ci.morning&&ci.morning.energy!=null?ci.morning.energy:null;},5));
 body.appendChild(buildTrend('🌟 Avaliação do dia',k=>{const ci=appDB.checkins[k];return ci&&ci.evening&&ci.evening.dayRating!=null?ci.evening.dayRating:null;},5,'linear-gradient(180deg,#a898cc,#7c6fa0)'));
-// ── Sequências ativas ──
-const streaks=appDB.habits.map(h=>({h,s:calcStreak(h.id)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
-const streakSec=document.createElement('div');streakSec.className='card';
-if(streaks.length){let sHTML=`<div class="resumo-section-title">🔥 Sequências ativas</div><div class="streak-list">`;streaks.forEach((x,i)=>{sHTML+=`<div class="streak-item"><div class="streak-rank">${i+1}</div><div class="streak-name">${x.h.emoji} ${x.h.name}</div><div class="streak-days">${x.s} dias</div></div>`;});sHTML+=`</div>`;streakSec.innerHTML=sHTML;}else{streakSec.innerHTML=`<div class="resumo-section-title">🔥 Sequências ativas</div><div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:var(--khaki);text-align:center;padding:8px">Nenhuma sequência ativa ainda.</div>`;}
-body.appendChild(streakSec);
 // ── Heatmap mensal ──
 const hmSec=document.createElement('div');hmSec.className='card';
 const now=new Date();const hmYear=now.getFullYear();const hmMonth=now.getMonth();const firstDay=new Date(hmYear,hmMonth,1).getDay();const daysInMonth=new Date(hmYear,hmMonth+1,0).getDate();
@@ -1043,11 +1157,11 @@ for(let i=0;i<firstDay;i++)hmHTML+=`<div></div>`;
 for(let d=1;d<=daysInMonth;d++){const dateObj=new Date(hmYear,hmMonth,d);const k=dateKey(dateObj);const isFuture=dateObj>now;if(isFuture){hmHTML+=`<div class="heatmap-cell future" title="${d}"></div>`;continue;}const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,dateObj));const log=(appDB.logs[k]&&appDB.logs[k].habits)||{};const pct=due.length>0?due.filter(h=>log[h.id]).length/due.length:0;const cls=due.length===0?'h0':pct===0?'h0':pct<0.5?'h1':pct<1?'h2':'h3';hmHTML+=`<div class="heatmap-cell ${cls}" title="${d}: ${Math.round(pct*100)}%"></div>`;}
 hmHTML+=`</div>`;hmSec.innerHTML=hmHTML;body.appendChild(hmSec);
 // ── Recordes pessoais ──
-let bestStreak=0,bestStreakName='—';appDB.habits.forEach(h=>{const s=calcStreak(h.id);if(s>bestStreak){bestStreak=s;bestStreakName=h.emoji+' '+h.name;}});
+let bestMom=0,bestMomH=null;appDB.habits.forEach(h=>{if((h.momentumScore||0)>bestMom){bestMom=h.momentumScore||0;bestMomH=h;}});
 let bestSleepWeek=0;const sleepKeys=Object.keys(appDB.checkins).filter(k=>appDB.checkins[k].morning&&appDB.checkins[k].morning.sleep);if(sleepKeys.length>=7){for(let i=0;i<=sleepKeys.length-7;i++){const avg=sleepKeys.slice(i,i+7).reduce((s,k)=>s+(appDB.checkins[k].morning.sleep||0),0)/7;if(avg>bestSleepWeek)bestSleepWeek=avg;}}else if(sleepKeys.length>0){bestSleepWeek=sleepKeys.reduce((s,k)=>s+(appDB.checkins[k].morning.sleep||0),0)/sleepKeys.length;}
 let bestHabDay=0,bestHabDayKey='—';Object.entries(appDB.logs).forEach(([k,log])=>{const c=log.habits?Object.keys(log.habits).length:0;if(c>bestHabDay){bestHabDay=c;bestHabDayKey=k;}});
 const recSec=document.createElement('div');recSec.className='card';
-recSec.innerHTML=`<div class="resumo-section-title">🏆 Recordes pessoais</div><div class="record-grid"><div class="record-card"><div class="record-label">Maior streak</div><div class="record-val">${bestStreak}d</div><div class="record-sub">${bestStreak?bestStreakName:'—'}</div></div><div class="record-card"><div class="record-label">Melhor sono semanal</div><div class="record-val">${bestSleepWeek?bestSleepWeek.toFixed(1)+'h':'—'}</div><div class="record-sub">média semanal</div></div><div class="record-card"><div class="record-label">Mais hábitos em 1 dia</div><div class="record-val">${bestHabDay||'—'}</div><div class="record-sub">${bestHabDayKey!=='—'?bestHabDayKey:''}</div></div><div class="record-card"><div class="record-label">XP Total</div><div class="record-val">${appDB.xp}</div><div class="record-sub">pontos acumulados</div></div></div>`;
+recSec.innerHTML=`<div class="resumo-section-title">🏆 Recordes pessoais</div><div class="record-grid"><div class="record-card"><div class="record-label">Maior momentum</div><div class="record-val" style="color:${getMomentumColor(bestMom)}">${bestMom}</div><div class="record-sub">${bestMomH?bestMomH.emoji+' '+bestMomH.name:'—'}</div></div><div class="record-card"><div class="record-label">Melhor sono semanal</div><div class="record-val">${bestSleepWeek?bestSleepWeek.toFixed(1)+'h':'—'}</div><div class="record-sub">média semanal</div></div><div class="record-card"><div class="record-label">Mais hábitos em 1 dia</div><div class="record-val">${bestHabDay||'—'}</div><div class="record-sub">${bestHabDayKey!=='—'?bestHabDayKey:''}</div></div><div class="record-card"><div class="record-label">XP Total</div><div class="record-val">${appDB.xp}</div><div class="record-sub">pontos acumulados</div></div></div>`;
 body.appendChild(recSec);
 // ── Consistência 30 dias ──
 let consist30=0;for(let i=0;i<30;i++){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d);if(appDB.logs[k]&&appDB.logs[k].habits&&Object.keys(appDB.logs[k].habits).length>0)consist30++;}
@@ -1060,7 +1174,7 @@ body.appendChild(cSec);}
 function calcIMC(){const w=appDB.profile.weight,h=appDB.profile.height;if(!w||!h)return null;const hm=h/100;return Math.round((w/(hm*hm))*10)/10;}
 function imcCategory(imc){if(!imc)return{label:'—',color:'var(--khaki)',pct:0};if(imc<18.5)return{label:'Abaixo do peso',color:'#4aa8d4',pct:18};if(imc<25)return{label:'Peso normal ✓',color:'var(--green)',pct:45};if(imc<30)return{label:'Sobrepeso',color:'var(--orange)',pct:70};return{label:'Obesidade',color:'var(--terra)',pct:90};}
 function xpLevel(xp){if(xp<100)return{level:1,label:'Iniciante'};if(xp<300)return{level:2,label:'Consistente'};if(xp<600)return{level:3,label:'Dedicado'};if(xp<1000)return{level:4,label:'Focado'};if(xp<2000)return{level:5,label:'Disciplinado'};return{level:6,label:'Elite'};}
-const BADGES=[{id:'first_checkin',emoji:'🌅',name:'1º Check-in',check:()=>Object.values(appDB.checkins).some(c=>c.morning)},{id:'first_habit',emoji:'🎯',name:'1º Hábito',check:()=>appDB.habits.length>0},{id:'streak3',emoji:'🔥',name:'3 dias seguidos',check:()=>appDB.habits.some(h=>calcStreak(h.id)>=3)},{id:'streak7',emoji:'💥',name:'7 dias seguidos',check:()=>appDB.habits.some(h=>calcStreak(h.id)>=7)},{id:'streak30',emoji:'⚡',name:'30 dias',check:()=>appDB.habits.some(h=>calcStreak(h.id)>=30)},{id:'water7',emoji:'💧',name:'7 dias c/ água',check:()=>Object.keys(appDB.water).length>=7},{id:'xp100',emoji:'✨',name:'100 XP',check:()=>appDB.xp>=100},{id:'xp500',emoji:'🏆',name:'500 XP',check:()=>appDB.xp>=500},{id:'evening_ci',emoji:'🌙',name:'Check-in noturno',check:()=>Object.values(appDB.checkins).some(c=>c.evening)},{id:'5habits',emoji:'🎪',name:'5 hábitos ativos',check:()=>appDB.habits.filter(h=>h.active).length>=5},{id:'completionist',emoji:'🥇',name:'Dia perfeito',check:()=>Object.keys(appDB.logs).some(k=>{const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,new Date(k+'T12:00:00')));return due.length>0&&due.every(h=>appDB.logs[k].habits&&appDB.logs[k].habits[h.id]);})},{id:'wolf',emoji:'🐺',name:'Guará de elite',check:()=>appDB.xp>=1000}];
+const BADGES=[{id:'first_checkin',emoji:'🌅',name:'1º Check-in',check:()=>Object.values(appDB.checkins).some(c=>c.morning)},{id:'first_habit',emoji:'🎯',name:'1º Hábito',check:()=>appDB.habits.length>0},{id:'momentum40',emoji:'🔥',name:'Momentum 40+',check:()=>appDB.habits.some(h=>(h.momentumScore||0)>=40)},{id:'momentum80',emoji:'💥',name:'Momentum 80+',check:()=>appDB.habits.some(h=>(h.momentumScore||0)>=80)},{id:'momentum100',emoji:'⚡',name:'Momentum Máximo',check:()=>appDB.habits.some(h=>(h.momentumScore||0)>=100)},{id:'water7',emoji:'💧',name:'7 dias c/ água',check:()=>Object.keys(appDB.water).length>=7},{id:'xp100',emoji:'✨',name:'100 XP',check:()=>appDB.xp>=100},{id:'xp500',emoji:'🏆',name:'500 XP',check:()=>appDB.xp>=500},{id:'evening_ci',emoji:'🌙',name:'Check-in noturno',check:()=>Object.values(appDB.checkins).some(c=>c.evening)},{id:'5habits',emoji:'🎪',name:'5 hábitos ativos',check:()=>appDB.habits.filter(h=>h.active).length>=5},{id:'completionist',emoji:'🥇',name:'Dia perfeito',check:()=>Object.keys(appDB.logs).some(k=>{const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,new Date(k+'T12:00:00')));return due.length>0&&due.every(h=>appDB.logs[k].habits&&appDB.logs[k].habits[h.id]);})},{id:'wolf',emoji:'🐺',name:'Guará de elite',check:()=>appDB.xp>=1000}];
 window.renderPerfil=function(){
   const body=document.getElementById('perfil-body');body.innerHTML='';
   const p=appDB.profile;const imc=calcIMC();const imcCat=imcCategory(imc);const lvl=xpLevel(appDB.xp);
@@ -1073,7 +1187,7 @@ window.renderPerfil=function(){
   if(imc){const imcCard=document.createElement('div');imcCard.className='imc-card animate-in';imcCard.style.animationDelay='0.05s';imcCard.innerHTML=`<div class="imc-title">📊 Índice de Massa Corporal</div><div class="imc-main"><div class="imc-value" style="color:${imcCat.color}">${imc}</div><div class="imc-cat">${imcCat.label}</div></div><div class="imc-bar-wrap"><div class="imc-bar-fill" style="width:${imcCat.pct}%;background:${imcCat.color}"></div></div><div class="imc-scale"><span>Baixo</span><span>Normal</span><span>Sobre</span><span>Obeso</span></div>`;body.appendChild(imcCard);}
   const dadosCard=document.createElement('div');dadosCard.className='pf-section animate-in';dadosCard.style.animationDelay='0.08s';dadosCard.innerHTML=`<div class="pf-section-header"><div class="pf-section-title">Dados Pessoais</div><button class="pf-edit-btn" onclick="openPerfilEdit()">✏️ Editar</button></div><div class="pf-rows"><div class="pf-row"><span class="pf-row-label">Peso atual</span><span class="pf-row-value ${!p.weight?'empty':''}">${p.weight?p.weight+' kg':'Não informado'}</span></div><div class="pf-row"><span class="pf-row-label">Altura</span><span class="pf-row-value ${!p.height?'empty':''}">${p.height?p.height+' cm':'Não informado'}</span></div><div class="pf-row"><span class="pf-row-label">% Gordura</span><span class="pf-row-value ${!p.fat?'empty':''}">${p.fat?p.fat+'%':'Não informado'}</span></div></div>`;body.appendChild(dadosCard);
   const metasCard=document.createElement('div');metasCard.className='pf-section animate-in';metasCard.style.animationDelay='0.10s';metasCard.innerHTML=`<div class="pf-section-header"><div class="pf-section-title">Metas</div><button class="pf-edit-btn" onclick="openPerfilEdit()">✏️ Editar</button></div><div class="pf-rows"><div class="pf-row"><span class="pf-row-label">💧 Água por dia</span><span class="pf-row-value">${(p.recWater||2.5).toFixed(1)} L</span></div><div class="pf-row"><span class="pf-row-label">⚖️ Peso alvo</span><span class="pf-row-value ${!p.recWeight?'empty':''}">${p.recWeight?p.recWeight+' kg':'Não definido'}</span></div></div>`;body.appendChild(metasCard);
-  const statsCard=document.createElement('div');statsCard.className='pf-section animate-in';statsCard.style.animationDelay='0.12s';statsCard.innerHTML=`<div class="pf-section-header"><div class="pf-section-title">Estatísticas</div></div><div class="pf-rows"><div class="pf-row"><span class="pf-row-label">🎯 Hábitos ativos</span><span class="pf-row-value">${totalHabits}</span></div><div class="pf-row"><span class="pf-row-label">📋 Check-ins</span><span class="pf-row-value">${totalCheckins}</span></div><div class="pf-row"><span class="pf-row-label">🔥 Melhor streak</span><span class="pf-row-value">${appDB.habits.length?Math.max(0,...appDB.habits.map(h=>calcStreak(h.id)))+' dias':'—'}</span></div><div class="pf-row"><span class="pf-row-label">✨ XP Total</span><span class="pf-row-value">${appDB.xp}</span></div></div>`;body.appendChild(statsCard);
+  const statsCard=document.createElement('div');statsCard.className='pf-section animate-in';statsCard.style.animationDelay='0.12s';statsCard.innerHTML=`<div class="pf-section-header"><div class="pf-section-title">Estatísticas</div></div><div class="pf-rows"><div class="pf-row"><span class="pf-row-label">🎯 Hábitos ativos</span><span class="pf-row-value">${totalHabits}</span></div><div class="pf-row"><span class="pf-row-label">📋 Check-ins</span><span class="pf-row-value">${totalCheckins}</span></div><div class="pf-row"><span class="pf-row-label">⚡ Maior momentum</span><span class="pf-row-value" style="color:${getMomentumColor(appDB.habits.length?Math.max(0,...appDB.habits.map(h=>h.momentumScore||0)):0)}">${appDB.habits.length?Math.max(0,...appDB.habits.map(h=>h.momentumScore||0)):'—'}</span></div><div class="pf-row"><span class="pf-row-label">✨ XP Total</span><span class="pf-row-value">${appDB.xp}</span></div></div>`;body.appendChild(statsCard);
   // Notificações
   const notifCard=document.createElement('div');notifCard.className='pf-section animate-in';notifCard.style.animationDelay='0.13s';
   const notifEnabled=p.notificationsEnabled===true;const notifSettings=p.notificationSettings||{};
