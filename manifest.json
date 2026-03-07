@@ -1,0 +1,21 @@
+{
+  "name": "Garbo Guará",
+  "short_name": "Garbo Guará",
+  "description": "Autocuidado de verdade",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2e2420",
+  "theme_color": "#2e2420",
+  "icons": [
+    {
+      "src": "Garbo Guará 192x192 px.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Garbo Guará 512x512 px.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
