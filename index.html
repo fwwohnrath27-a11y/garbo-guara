@@ -446,6 +446,55 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
 .notif-pill .notif-ball{width:18px;height:18px;border-radius:50%;background:white;position:absolute;top:3px;transition:all 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
 .notif-pill.on{background:var(--orange)}.notif-pill.on .notif-ball{right:3px;left:auto}
 .notif-pill.off{background:var(--bg4)}.notif-pill.off .notif-ball{left:3px;right:auto}
+
+/* HABIT STORE */
+.store-pkg-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px;position:relative;overflow:hidden;transition:all 0.2s}
+.store-pkg-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.store-char{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.store-pkg-name{font-size:14px;font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:2px}
+.store-pkg-char{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase}
+.store-pkg-desc{font-family:'Crimson Pro',serif;font-size:13px;color:var(--beige);line-height:1.5;margin-bottom:10px}
+.store-habit-chips{display:flex;flex-wrap:wrap;gap:5px}
+.store-habit-chip{background:var(--bg3);border:1px solid var(--border2);border-radius:99px;padding:4px 9px;font-size:11px;color:var(--beige);font-weight:600}
+.store-add-btn{width:100%;margin-top:12px;padding:11px;border-radius:var(--r);border:none;font-family:'League Spartan',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;color:var(--cream)}
+.store-add-btn:active{transform:scale(0.97);opacity:0.85}
+.store-packages-list{display:flex;flex-direction:column;gap:12px;padding:0 24px 24px}
+.store-cat-tabs{display:flex;gap:6px;overflow-x:auto;padding:0 24px 16px;scrollbar-width:none}
+.store-cat-tabs::-webkit-scrollbar{display:none}
+.store-cat-tab{flex-shrink:0;padding:7px 14px;border-radius:99px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--khaki);font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;font-family:'League Spartan',sans-serif}
+.store-cat-tab.active{border-color:var(--orange);background:rgba(217,121,37,0.12);color:var(--orange2)}
+
+/* WATER ADJUST */
+.water-adjust-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
+.w-adj-btn{padding:8px 4px;border-radius:9px;background:var(--bg3);border:1px solid var(--border2);color:var(--beige);font-family:'League Spartan',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;text-align:center}
+.w-adj-btn:active{transform:scale(0.95)}
+.w-adj-btn.minus{color:var(--terra);border-color:rgba(188,90,69,0.3)}
+
+/* CORRELATION CARDS */
+.corr-insight{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:16px;display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.corr-icon{font-size:26px;flex-shrink:0;margin-top:2px}
+.corr-body{flex:1;min-width:0}
+.corr-title{font-size:13px;font-weight:700;color:var(--cream);margin-bottom:4px;line-height:1.3}
+.corr-sub{font-family:'Crimson Pro',serif;font-size:12px;color:var(--khaki);line-height:1.4;margin-bottom:10px}
+.corr-bars{display:flex;gap:10px}
+.corr-bar-wrap{flex:1;display:flex;flex-direction:column;gap:3px}
+.corr-bar-label{font-size:9px;font-weight:700;letter-spacing:0.08em;color:var(--khaki);text-transform:uppercase}
+.corr-bar-track{height:5px;background:var(--bg4);border-radius:99px;overflow:hidden}
+.corr-bar-fill{height:100%;border-radius:99px;transition:width 0.5s ease}
+.corr-bar-val{font-size:11px;font-weight:700;color:var(--cream);margin-top:1px}
+
+/* MANAGEMENT CENTER */
+.mgmt-habit-row{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:10px;animation:fadeUp 0.3s ease both}
+.mgmt-habit-row.inactive{opacity:0.45}
+.mgmt-habit-info{flex:1;min-width:0}
+.mgmt-habit-name{font-size:13px;font-weight:600;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mgmt-habit-freq{font-size:10px;color:var(--khaki);margin-top:2px}
+.mgmt-view-toggle{display:flex;gap:0;background:var(--bg3);border-radius:var(--r);overflow:hidden;border:1px solid var(--border2);margin:8px 0 6px}
+.mgmt-tab{flex:1;padding:8px 10px;border:none;background:transparent;color:var(--khaki);font-family:'League Spartan',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-align:center}
+.mgmt-tab.active{background:var(--orange);color:var(--cream)}
+
+/* RESUMO SECTION TITLE */
+.resumo-section-title{font-size:10px;font-weight:700;letter-spacing:0.2em;color:var(--khaki);text-transform:uppercase;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -563,7 +612,7 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
     <div class="section-label animate-in" style="padding:0 4px;animation-delay:0.1s">Semana</div>
     <div class="week-stats animate-in" style="animation-delay:0.12s"><div class="stat-card"><div class="stat-emoji">😴</div><div class="stat-value" id="stat-sleep">—</div><div class="stat-label">sono (h)</div></div><div class="stat-card"><div class="stat-emoji">⚡</div><div class="stat-value" id="stat-energy">—</div><div class="stat-label">energia</div></div><div class="stat-card"><div class="stat-emoji">😊</div><div class="stat-value" id="stat-mood">—</div><div class="stat-label">humor</div></div></div>
     <div class="section-label animate-in" style="padding:0 4px;animation-delay:0.14s">Hidratação</div>
-    <div class="hydration-card animate-in" style="animation-delay:0.16s"><div class="hydration-header"><div class="hydration-title">💧 Água hoje</div><div class="hydration-meta"><span id="water-current">0</span> / <span id="water-goal-display">2.5</span>L</div></div><div class="hydration-track"><div class="hydration-fill" id="water-fill" style="width:0%"></div></div><div class="hydration-btns"><button class="h-btn" onclick="addWater(0.15)">+150ml</button><button class="h-btn" onclick="addWater(0.20)">+200ml</button><button class="h-btn" onclick="addWater(0.30)">+300ml</button><button class="h-btn" onclick="addWater(0.50)">+500ml</button></div></div>
+    <div class="hydration-card animate-in" style="animation-delay:0.16s"><div class="hydration-header"><div class="hydration-title">💧 Água hoje</div><div class="hydration-meta"><span id="water-current">0</span> / <span id="water-goal-display">2.5</span>L</div></div><div class="hydration-track"><div class="hydration-fill" id="water-fill" style="width:0%"></div></div><div class="hydration-btns"><button class="h-btn" onclick="addWater(0.15)">+150ml</button><button class="h-btn" onclick="addWater(0.20)">+200ml</button><button class="h-btn" onclick="addWater(0.30)">+300ml</button><button class="h-btn" onclick="addWater(0.50)">+500ml</button></div><div class="water-adjust-row"><button class="w-adj-btn minus" onclick="addWater(-0.25)">−250ml</button><button class="w-adj-btn minus" onclick="addWater(-0.50)">−500ml</button><button class="w-adj-btn minus" onclick="resetWater()">Zerar</button></div></div>
     <div class="section-label animate-in" style="padding:0 4px;animation-delay:0.18s">Desafio do dia</div>
     <div class="challenge-card animate-in" style="animation-delay:0.2s"><div class="challenge-header"><div class="challenge-badge">🏆 Desafio</div><div class="challenge-xp" id="challenge-xp-label">+50 XP</div></div><div class="challenge-title" id="challenge-title">—</div><div class="challenge-desc" id="challenge-desc">—</div><div class="challenge-action"><button class="btn btn-secondary btn-sm" style="width:auto" id="btn-challenge" onclick="completeChallenge()">Marcar como feito</button></div></div>
     <div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px" class="animate-in"><div class="section-label" style="flex:1">Hábitos de hoje</div><button onclick="showTab('habitos')" style="background:none;border:none;color:var(--orange2);font-family:'League Spartan',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;margin-left:12px">Ver todos →</button></div>
@@ -573,7 +622,21 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
 
 <!-- HÁBITOS -->
 <div class="screen" id="screen-habitos">
-  <div class="hab-header"><div class="hab-title-row"><div class="hab-title">Hábitos <span>🎯</span></div><button class="btn-add-hab" onclick="openHabitForm(null)">＋</button></div><div class="hab-summary"><div class="hab-summary-text" id="hab-summary-text">—</div><div class="hab-prog-track"><div class="hab-prog-fill" id="hab-prog-fill" style="width:0%"></div></div></div></div>
+  <div class="hab-header">
+    <div class="hab-title-row">
+      <div class="hab-title">Hábitos <span>🎯</span></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-add-hab" style="background:var(--bg3);box-shadow:none;border:1px solid var(--border2);font-size:18px" onclick="openHabitStore()" title="Loja de hábitos">🛍</button>
+        <button class="btn-add-hab" onclick="openHabitForm(null)">＋</button>
+      </div>
+    </div>
+    <div class="day-selector" id="day-selector"></div>
+    <div class="mgmt-view-toggle">
+      <button class="mgmt-tab active" id="hab-tab-hoje" onclick="setHabView('hoje')">📅 Hoje</button>
+      <button class="mgmt-tab" id="hab-tab-central" onclick="setHabView('central')">⚙️ Central</button>
+    </div>
+    <div class="hab-summary"><div class="hab-summary-text" id="hab-summary-text">—</div><div class="hab-prog-track"><div class="hab-prog-fill" id="hab-prog-fill" style="width:0%"></div></div></div>
+  </div>
   <div class="hab-body" id="hab-body"></div>
 </div>
 
@@ -610,7 +673,6 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
       <div class="input-wrap"><div class="input-label">Emoji</div><div class="emoji-picker" id="emoji-picker"></div></div>
       <div class="input-wrap"><div class="input-label">Nome do hábito</div><input type="text" class="input-field" id="hf-name" placeholder="Ex: Beber água, Meditação..."></div>
       <div class="input-wrap"><div class="input-label">Categoria</div><div class="cat-select-grid" id="hf-cat-grid"></div></div>
-      <div class="input-wrap"><div class="input-label">Horário preferido <span class="badge-opt">opcional</span></div><input type="time" class="input-field" id="hf-time" style="color-scheme:dark"></div>
       <div class="input-wrap"><div class="input-label">Frequência</div><div class="freq-btns"><button class="freq-btn selected" data-freq="diaria" onclick="selectFreq(this)">📅 Diária</button><button class="freq-btn" data-freq="semanal" onclick="selectFreq(this)">📆 Semanal</button><button class="freq-btn" data-freq="quinzenal" onclick="selectFreq(this)">🗓 Quinzenal</button><button class="freq-btn" data-freq="mensal" onclick="selectFreq(this)">📋 Mensal</button></div></div>
       <div class="input-wrap" id="hf-weekdays-wrap" style="display:none"><div class="input-label">Dias da semana</div><div style="display:flex;gap:6px;flex-wrap:wrap" id="hf-weekdays"><button class="freq-btn" data-wd="0" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Dom</button><button class="freq-btn" data-wd="1" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Seg</button><button class="freq-btn" data-wd="2" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Ter</button><button class="freq-btn" data-wd="3" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Qua</button><button class="freq-btn" data-wd="4" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Qui</button><button class="freq-btn" data-wd="5" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Sex</button><button class="freq-btn" data-wd="6" onclick="toggleWeekday(this)" style="flex:none;padding:10px 12px;font-size:11px">Sáb</button></div></div>
       <div class="input-wrap"><div class="input-label">Cor</div><div class="color-picker" id="color-picker"><div class="color-opt selected" data-color="#d97925" style="background:#d97925" onclick="selectColor(this)"></div><div class="color-opt" data-color="#f3a648" style="background:#f3a648" onclick="selectColor(this)"></div><div class="color-opt" data-color="#bc5a45" style="background:#bc5a45" onclick="selectColor(this)"></div><div class="color-opt" data-color="#4aa8d4" style="background:#4aa8d4" onclick="selectColor(this)"></div><div class="color-opt" data-color="#5a9e6f" style="background:#5a9e6f" onclick="selectColor(this)"></div><div class="color-opt" data-color="#7c6fa0" style="background:#7c6fa0" onclick="selectColor(this)"></div><div class="color-opt" data-color="#757352" style="background:#757352" onclick="selectColor(this)"></div><div class="color-opt" data-color="#b0af8c" style="background:#b0af8c" onclick="selectColor(this)"></div><div class="color-opt" data-color="#e3d1a8" style="background:#e3d1a8" onclick="selectColor(this)"></div></div></div>
@@ -663,6 +725,20 @@ input[type=number].input-field::-webkit-inner-spin-button,input[type=number].inp
       <button class="btn btn-primary" onclick="enableNotifications()">🐺 Ativar lembretes</button>
       <button class="btn btn-ghost" onclick="dismissNotifPermission()">Agora não</button>
     </div>
+  </div>
+</div>
+
+<!-- MODAL LOJA DE HÁBITOS -->
+<div class="modal-overlay" id="modal-habit-store">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div><div class="modal-title">Loja de Hábitos 🛍</div><div class="modal-subtitle">Pacotes prontos com personagens Garbo Guará</div></div>
+      <button class="modal-close" onclick="closeModal('modal-habit-store')">✕</button>
+    </div>
+    <div class="modal-divider"></div>
+    <div class="store-cat-tabs" id="store-cat-tabs"></div>
+    <div class="store-packages-list" id="store-packages-list"></div>
   </div>
 </div>
 
@@ -981,10 +1057,11 @@ window.finishOnboarding=function(){appDB.profile.onboardingDone=true;if(appDB.ha
 
 // HOME
 const CHALLENGES=[{title:'Hidratação Perfeita',desc:'Complete sua meta de água hoje.',xp:50},{title:'Manhã de Ouro',desc:'Complete todos os hábitos antes do meio-dia.',xp:60},{title:'Noite de Qualidade',desc:'Planeje dormir pelo menos 7 horas esta noite.',xp:40},{title:'Zero a Zero',desc:'Marque todos os hábitos do dia sem exceção.',xp:80},{title:'Sequência Bônus',desc:'Mantenha todos os seus streaks ativos hoje.',xp:45}];
-window.renderHome=function(){const hr=new Date().getHours();document.getElementById('home-greeting').textContent=hr<12?'Bom dia,':hr<18?'Boa tarde,':'Boa noite,';document.getElementById('home-name').textContent=appDB.profile.name||'Campeão';document.getElementById('home-date').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});calcWeekStats();updateWaterUI();const d=new Date();const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);const ch=CHALLENGES[doy%CHALLENGES.length];document.getElementById('challenge-title').textContent=ch.title;document.getElementById('challenge-desc').textContent=ch.desc;document.getElementById('challenge-xp-label').textContent='+'+ch.xp+' XP';const today=todayKey();const btn=document.getElementById('btn-challenge');if(appDB.logs[today]&&appDB.logs[today].challengeDone){btn.textContent='✓ Concluído hoje';btn.disabled=true;btn.style.opacity='0.5';}else{btn.textContent='Marcar como feito';btn.disabled=false;btn.style.opacity='1';}const bm=document.getElementById('checkin-banner-morning');const morningAvail=hr>=0&&hr<12;if(appDB.checkins[today]&&appDB.checkins[today].morning){bm.style.borderColor='rgba(61,245,160,0.3)';bm.style.opacity='';bm.style.cursor='';bm.querySelector('.checkin-banner-title').textContent='✓ Check-in Matinal feito';bm.querySelector('.checkin-banner-sub').textContent='Clique para editar';}else if(!morningAvail){bm.style.borderColor='';bm.style.opacity='0.45';bm.style.cursor='default';bm.querySelector('.checkin-banner-title').textContent='Check-in Matinal';bm.querySelector('.checkin-banner-sub').textContent='Disponível das 0h às 12h';}else{bm.style.borderColor='';bm.style.opacity='';bm.style.cursor='';bm.querySelector('.checkin-banner-title').textContent='Check-in Matinal';bm.querySelector('.checkin-banner-sub').textContent='Como você acordou hoje?';}const be=document.getElementById('checkin-banner-evening');const eveningAvail=hr>=18;if(appDB.checkins[today]&&appDB.checkins[today].evening){be.style.borderColor='rgba(168,152,204,0.4)';be.style.opacity='';be.style.cursor='';be.querySelector('.checkin-banner-title').textContent='✓ Check-in Noturno feito';be.querySelector('.checkin-banner-sub').textContent='Clique para editar';}else if(!eveningAvail){be.style.borderColor='';be.style.opacity='0.45';be.style.cursor='default';be.querySelector('.checkin-banner-title').textContent='Check-in Noturno';be.querySelector('.checkin-banner-sub').textContent='Disponível a partir das 18h';}else{be.style.borderColor='';be.style.opacity='';be.style.cursor='';be.querySelector('.checkin-banner-title').textContent='Check-in Noturno';be.querySelector('.checkin-banner-sub').textContent='Como foi o seu dia?';}renderHomeHabits();};
+window.renderHome=function(){const hr=new Date().getHours();document.getElementById('home-greeting').textContent=hr<12?'Bom dia,':hr<18?'Boa tarde,':'Boa noite,';document.getElementById('home-name').textContent=appDB.profile.name||'Campeão';document.getElementById('home-date').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});calcWeekStats();updateWaterUI();const d=new Date();const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);const ch=CHALLENGES[doy%CHALLENGES.length];document.getElementById('challenge-title').textContent=ch.title;document.getElementById('challenge-desc').textContent=ch.desc;document.getElementById('challenge-xp-label').textContent='+'+ch.xp+' XP';const today=todayKey();const btn=document.getElementById('btn-challenge');if(appDB.logs[today]&&appDB.logs[today].challengeDone){btn.textContent='✓ Concluído hoje';btn.disabled=true;btn.style.opacity='0.5';}else{btn.textContent='Marcar como feito';btn.disabled=false;btn.style.opacity='1';}const bm=document.getElementById('checkin-banner-morning');const morningDone=!!(appDB.checkins[today]&&appDB.checkins[today].morning);if(morningDone){bm.style.display='';bm.style.borderColor='rgba(61,245,160,0.3)';bm.querySelector('.checkin-banner-title').textContent='✓ Check-in Matinal feito';bm.querySelector('.checkin-banner-sub').textContent='Clique para editar';}else if(hr>=12){bm.style.display='none';}else{bm.style.display='';bm.style.borderColor='';bm.querySelector('.checkin-banner-title').textContent='Check-in Matinal';bm.querySelector('.checkin-banner-sub').textContent='Como você acordou hoje?';}const be=document.getElementById('checkin-banner-evening');const eveningDone=!!(appDB.checkins[today]&&appDB.checkins[today].evening);if(eveningDone){be.style.display='';be.style.borderColor='rgba(168,152,204,0.4)';be.querySelector('.checkin-banner-title').textContent='✓ Check-in Noturno feito';be.querySelector('.checkin-banner-sub').textContent='Clique para editar';}else if(hr<18){be.style.display='none';}else{be.style.display='';be.style.borderColor='';be.querySelector('.checkin-banner-title').textContent='Check-in Noturno';be.querySelector('.checkin-banner-sub').textContent='Como foi o seu dia?';}renderHomeHabits();};
 function calcWeekStats(){let sS=0,eS=0,mS=0,n=0;for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ci=appDB.checkins[dateKey(d)];if(ci&&ci.morning){if(ci.morning.sleep)sS+=ci.morning.sleep;if(ci.morning.energy)eS+=ci.morning.energy;if(ci.morning.mood)mS+=ci.morning.mood;n++;}}document.getElementById('stat-sleep').textContent=n?(sS/n).toFixed(1):'—';document.getElementById('stat-energy').textContent=n?(eS/n).toFixed(1):'—';document.getElementById('stat-mood').textContent=n?(mS/n).toFixed(1):'—';}
-window.renderHomeHabits=function(){const c=document.getElementById('home-habits-preview');c.innerHTML='';const today=todayKey();const tl=(appDB.logs[today]&&appDB.logs[today].habits)||{};const visible=appDB.habits.filter(h=>h.active&&isHabitDue(h));if(!visible.length){c.innerHTML='<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:var(--khaki);text-align:center;padding:16px">Nenhum hábito para hoje.</div>';return;}visible.slice(0,4).forEach((h,i)=>{const done=!!tl[h.id];const sc=h.momentumScore||0;const mCol=getMomentumColor(sc);const mLbl=getMomentumLabel(sc);const div=document.createElement('div');div.className='habit-row'+(done?' done':'');div.style.animationDelay=(i*0.05)+'s';div.innerHTML=`<div class="habit-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="habit-info-wrap"><div class="habit-row-name">${h.emoji} ${h.name}</div><div class="habit-row-meta"><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${mCol};border-radius:99px;transition:width 0.4s ease"></div></div><span style="font-size:9px;font-weight:700;color:${mCol}">${sc}</span><span style="font-size:9px;color:var(--khaki)">— ${mLbl}</span></div>${h.time?`<div style="font-size:10px;color:var(--khaki);margin-top:1px">⏰ ${h.time}</div>`:''}</div></div><button class="habit-edit-btn" onclick="openHabitForm('${h.id}',event)">⋮</button>`;c.appendChild(div);});if(visible.length>4){const m=document.createElement('div');m.className='habits-preview-more';m.textContent='+ '+(visible.length-4)+' mais';m.onclick=()=>showTab('habitos');c.appendChild(m);}};
-window.addWater=function(amt){const today=todayKey();if(!appDB.water[today])appDB.water[today]=0;appDB.water[today]=Math.round((appDB.water[today]+amt)*100)/100;saveDB();updateWaterUI();showToast('💧 +'+Math.round(amt*1000)+'ml');};
+window.renderHomeHabits=function(){const c=document.getElementById('home-habits-preview');c.innerHTML='';const today=todayKey();const tl=(appDB.logs[today]&&appDB.logs[today].habits)||{};const visible=appDB.habits.filter(h=>h.active&&isHabitDue(h));if(!visible.length){c.innerHTML='<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:var(--khaki);text-align:center;padding:16px">Nenhum hábito para hoje.</div>';return;}visible.slice(0,4).forEach((h,i)=>{const done=!!tl[h.id];const sc=h.momentumScore||0;const mCol=getMomentumColor(sc);const mLbl=getMomentumLabel(sc);const div=document.createElement('div');div.className='habit-row'+(done?' done':'');div.style.animationDelay=(i*0.05)+'s';div.innerHTML=`<div class="habit-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="habit-info-wrap"><div class="habit-row-name">${h.emoji} ${h.name}</div><div class="habit-row-meta"><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${mCol};border-radius:99px;transition:width 0.4s ease"></div></div><span style="font-size:9px;font-weight:700;color:${mCol}">${sc}</span><span style="font-size:9px;color:var(--khaki)">— ${mLbl}</span></div></div></div><button class="habit-edit-btn" onclick="openHabitForm('${h.id}',event)">⋮</button>`;c.appendChild(div);});if(visible.length>4){const m=document.createElement('div');m.className='habits-preview-more';m.textContent='+ '+(visible.length-4)+' mais';m.onclick=()=>showTab('habitos');c.appendChild(m);}};
+window.addWater=function(amt){const today=todayKey();if(!appDB.water[today])appDB.water[today]=0;appDB.water[today]=Math.max(0,Math.round((appDB.water[today]+amt)*100)/100);saveDB();updateWaterUI();if(amt>0)showToast('💧 +'+Math.round(amt*1000)+'ml');else showToast('💧 −'+Math.round(Math.abs(amt)*1000)+'ml');};
+window.resetWater=function(){const today=todayKey();appDB.water[today]=0;saveDB();updateWaterUI();showToast('💧 Zerado');};
 window.updateWaterUI=function(){const today=todayKey();const cur=appDB.water[today]||0;const goal=appDB.profile.recWater||2.5;const pct=Math.min(100,Math.round((cur/goal)*100));document.getElementById('water-current').textContent=cur?cur.toFixed(2).replace(/\.?0+$/,''):'0';document.getElementById('water-goal-display').textContent=(appDB.profile.recWater||2.5).toFixed(1);document.getElementById('water-fill').style.width=pct+'%';};
 window.completeChallenge=function(){const today=todayKey();if(!appDB.logs[today])appDB.logs[today]={};if(appDB.logs[today].challengeDone)return;appDB.logs[today].challengeDone=true;const d=new Date();const ch=CHALLENGES[Math.floor((d-new Date(d.getFullYear(),0,0))/86400000)%CHALLENGES.length];appDB.xp+=ch.xp;saveDB();const btn=document.getElementById('btn-challenge');btn.textContent='✓ Concluído hoje';btn.disabled=true;btn.style.opacity='0.5';showToast('🏆 +'+ch.xp+' XP!',3000);};
 
@@ -1047,61 +1124,233 @@ function applyMomentumDecay(){
   }
 }
 
-window.toggleHabit=function(id,e){
+window.toggleHabit=function(id,e,dayKey){
   if(e)e.stopPropagation();
-  const today=todayKey();
-  if(!appDB.logs[today])appDB.logs[today]={};
-  if(!appDB.logs[today].habits)appDB.logs[today].habits={};
-  const l=appDB.logs[today].habits;
+  const targetDay=dayKey||todayKey();
+  const isToday=targetDay===todayKey();
+  if(!appDB.logs[targetDay])appDB.logs[targetDay]={};
+  if(!appDB.logs[targetDay].habits)appDB.logs[targetDay].habits={};
+  const l=appDB.logs[targetDay].habits;
   const h=appDB.habits.find(x=>x.id===id);
   if(l[id]){
     delete l[id];
+    if(isToday&&h){appDB.xp=Math.max(0,appDB.xp-(h.xp||10));}
     showToast('Desmarcado');
   }else{
     l[id]=true;
-    appDB.xp+=(h?h.xp:10);
-    if(h){
-      const oldScore=h.momentumScore||0;
-      const oldLabel=getMomentumLabel(oldScore);
-      const inc=calcMomentumIncrease(oldScore);
-      const newScore=Math.min(100,oldScore+inc);
-      const newLabel=getMomentumLabel(newScore);
-      h.momentumScore=newScore;
-      h.lastActiveDate=today;
-      if(!h.momentumHistory)h.momentumHistory=[];
-      h.momentumHistory.push({date:today,score:newScore});
-      if(h.momentumHistory.length>30)h.momentumHistory.shift();
-      // Milestones
-      if(!h.momentumMilestones)h.momentumMilestones=[];
-      const maxHist=Math.max(0,...(h.momentumHistory.map(x=>x.score)));
-      let celebrated=false;
-      [[40,'Esse hábito está ganhando raiz. 💪'],[80,'Quase automático. Continue.'],[100,'Hábito sólido. Você construiu isso.']].forEach(([ms,msg])=>{
-        if(newScore>=ms&&oldScore<ms&&!h.momentumMilestones.find(m=>m.score===ms)){
-          h.momentumMilestones.push({score:ms,date:today});
-          setTimeout(()=>showToast(msg,3500),400);
-          celebrated=true;
-        }
-      });
-      // Return after 3+ days absent
-      if(!celebrated&&h.lastActiveDate&&h.lastActiveDate!==today){
-        const lastActive=new Date(h.lastActiveDate+'T12:00:00');
-        const daysAway=Math.floor((new Date(today+'T12:00:00')-lastActive)/86400000);
-        if(daysAway>=3){setTimeout(()=>showToast('Isso. É aqui que a resiliência se constrói.',3000),400);celebrated=true;}
-      }
-      if(!celebrated){
-        if(newScore===100)showToast('Momentum no máximo 🔵',2000);
-        else if(newLabel!==oldLabel)showToast('⬆ Momentum: '+newLabel+'!',2500);
-        else showToast('+'+inc+' momentum',1800);
-      }
-    }else{showToast('✓ +10 XP');}
+    if(isToday){
+      appDB.xp+=(h?h.xp:10);
+      if(h){
+        const oldScore=h.momentumScore||0;
+        const oldLabel=getMomentumLabel(oldScore);
+        const inc=calcMomentumIncrease(oldScore);
+        const newScore=Math.min(100,oldScore+inc);
+        const newLabel=getMomentumLabel(newScore);
+        h.momentumScore=newScore;
+        h.lastActiveDate=targetDay;
+        if(!h.momentumHistory)h.momentumHistory=[];
+        h.momentumHistory.push({date:targetDay,score:newScore});
+        if(h.momentumHistory.length>30)h.momentumHistory.shift();
+        if(!h.momentumMilestones)h.momentumMilestones=[];
+        let celebrated=false;
+        [[40,'Esse hábito está ganhando raiz. 💪'],[80,'Quase automático. Continue.'],[100,'Hábito sólido. Você construiu isso.']].forEach(([ms,msg])=>{
+          if(newScore>=ms&&oldScore<ms&&!h.momentumMilestones.find(m=>m.score===ms)){h.momentumMilestones.push({score:ms,date:targetDay});setTimeout(()=>showToast(msg,3500),400);celebrated=true;}
+        });
+        if(!celebrated&&h.lastActiveDate&&h.lastActiveDate!==targetDay){const lastActive=new Date(h.lastActiveDate+'T12:00:00');const daysAway=Math.floor((new Date(targetDay+'T12:00:00')-lastActive)/86400000);if(daysAway>=3){setTimeout(()=>showToast('Isso. É aqui que a resiliência se constrói.',3000),400);celebrated=true;}}
+        if(!celebrated){if(newScore===100)showToast('Momentum no máximo 🔵',2000);else if(newLabel!==oldLabel)showToast('⬆ Momentum: '+newLabel+'!',2500);else showToast('+'+inc+' momentum',1800);}
+      }else{showToast('✓ +10 XP');}
+    }else{
+      showToast('✓ Marcado para '+targetDay.slice(5).replace('-','/'));
+    }
   }
   saveDB();renderHomeHabits();renderHabitos();
 };
 function calcStreak(hid){let s=0;const d=new Date();d.setDate(d.getDate()-1);for(let i=0;i<365;i++){const key=dateKey(d);if(appDB.logs[key]&&appDB.logs[key].habits&&appDB.logs[key].habits[hid]){s++;d.setDate(d.getDate()-1);}else break;}return s;}
 
+// ══════════════════════════════════
+//  LOJA DE HÁBITOS
+// ══════════════════════════════════
+const HABIT_PACKAGES=[
+  {id:'guara',cat:'corpo',char:{emoji:'🐺',name:'O Guará Alfa',color:'#d97925'},name:'Força & Corpo',desc:'O programa do Guará: construção física, fria e sem desculpas.',habits:[
+    {name:'Academia',emoji:'🏋️',cat:'corpo',color:'#d97925',freq:'semanal',weekdays:[1,3,5]},
+    {name:'Cold shower',emoji:'🚿',cat:'corpo',color:'#4aa8d4',freq:'diaria',weekdays:[]},
+    {name:'Proteína no café',emoji:'🥚',cat:'nutricao',color:'#bc5a45',freq:'diaria',weekdays:[]},
+    {name:'Suplemento',emoji:'💊',cat:'nutricao',color:'#757352',freq:'diaria',weekdays:[]},
+    {name:'Caminhada 20min',emoji:'🚶',cat:'corpo',color:'#5a9e6f',freq:'diaria',weekdays:[]},
+  ]},
+  {id:'aguia',cat:'disciplina',char:{emoji:'🦅',name:'O Águia',color:'#bc5a45'},name:'Disciplina & Foco',desc:'Rotina implacável. Mente clara. Resultado inevitável.',habits:[
+    {name:'Acordar cedo',emoji:'⏰',cat:'sono',color:'#f3a648',freq:'diaria',weekdays:[]},
+    {name:'Revisar prioridades do dia',emoji:'📋',cat:'desenvolvimento',color:'#b0af8c',freq:'diaria',weekdays:[]},
+    {name:'Sem celular pela manhã',emoji:'📵',cat:'mente',color:'#757352',freq:'diaria',weekdays:[]},
+    {name:'Bloco de trabalho profundo',emoji:'🎯',cat:'mente',color:'#bc5a45',freq:'diaria',weekdays:[]},
+    {name:'Sem multitarefa',emoji:'🚫',cat:'mente',color:'#bc5a45',freq:'diaria',weekdays:[]},
+  ]},
+  {id:'monge-sono',cat:'sono',char:{emoji:'🌙',name:'O Monge Noturno',color:'#7c6fa0'},name:'Sono & Recuperação',desc:'O sono é o treino mais importante. Proteja-o com rituais.',habits:[
+    {name:'Dormir no horário fixo',emoji:'😴',cat:'sono',color:'#4aa8d4',freq:'diaria',weekdays:[]},
+    {name:'Sem telas 1h antes de dormir',emoji:'🔕',cat:'sono',color:'#7c6fa0',freq:'diaria',weekdays:[]},
+    {name:'Quarto escuro e fresco',emoji:'🌡️',cat:'sono',color:'#757352',freq:'diaria',weekdays:[]},
+    {name:'Sem cafeína após 14h',emoji:'☕',cat:'nutricao',color:'#bc5a45',freq:'diaria',weekdays:[]},
+  ]},
+  {id:'sabio',cat:'mente',char:{emoji:'🦉',name:'O Sábio',color:'#757352'},name:'Mente & Aprendizado',desc:'Ler, refletir e crescer. A inteligência é treinada todos os dias.',habits:[
+    {name:'Leitura 20min',emoji:'📚',cat:'desenvolvimento',color:'#b0af8c',freq:'diaria',weekdays:[]},
+    {name:'Podcast ou curso',emoji:'🎧',cat:'desenvolvimento',color:'#757352',freq:'semanal',weekdays:[1,3,5]},
+    {name:'Journaling',emoji:'✍️',cat:'mente',color:'#5a9e6f',freq:'diaria',weekdays:[]},
+    {name:'Revisar aprendizados da semana',emoji:'🧠',cat:'mente',color:'#4aa8d4',freq:'semanal',weekdays:[0]},
+  ]},
+  {id:'naturalista',cat:'espiritualidade',char:{emoji:'🌿',name:'O Naturalista',color:'#5a9e6f'},name:'Espiritualidade & Presença',desc:'Silêncio, intenção e contato com o essencial da vida.',habits:[
+    {name:'Meditação',emoji:'🧘',cat:'mente',color:'#5a9e6f',freq:'diaria',weekdays:[]},
+    {name:'3 itens de gratidão',emoji:'🙏',cat:'mente',color:'#b0af8c',freq:'diaria',weekdays:[]},
+    {name:'Respiração 4-7-8',emoji:'💨',cat:'mente',color:'#7c6fa0',freq:'diaria',weekdays:[]},
+    {name:'Tempo na natureza',emoji:'🌳',cat:'corpo',color:'#5a9e6f',freq:'semanal',weekdays:[0,6]},
+  ]},
+  {id:'conector',cat:'social',char:{emoji:'🤝',name:'O Conector',color:'#f3a648'},name:'Relacionamentos',desc:'Seus vínculos são seu maior ativo. Cultive-os ativamente.',habits:[
+    {name:'Ligar para amigo ou família',emoji:'📞',cat:'social',color:'#f3a648',freq:'semanal',weekdays:[0,3,6]},
+    {name:'Tempo de qualidade',emoji:'❤️',cat:'social',color:'#bc5a45',freq:'semanal',weekdays:[5,6]},
+    {name:'Mensagem de atenção',emoji:'💬',cat:'social',color:'#f3a648',freq:'semanal',weekdays:[2,4]},
+  ]},
+  {id:'nutri',cat:'nutricao',char:{emoji:'🥗',name:'O Nutricionista',color:'#bc5a45'},name:'Nutrição & Saúde',desc:'Você é o que come. Controle o combustível do seu corpo.',habits:[
+    {name:'Café da manhã proteico',emoji:'🍳',cat:'nutricao',color:'#bc5a45',freq:'diaria',weekdays:[]},
+    {name:'5 porções de vegetais',emoji:'🥦',cat:'nutricao',color:'#5a9e6f',freq:'diaria',weekdays:[]},
+    {name:'Evitar ultraprocessados',emoji:'🚫',cat:'nutricao',color:'#757352',freq:'diaria',weekdays:[]},
+    {name:'Creatina',emoji:'💊',cat:'nutricao',color:'#4aa8d4',freq:'diaria',weekdays:[]},
+  ]},
+  {id:'filosofo',cat:'criatividade',char:{emoji:'✍️',name:'O Filósofo',color:'#b0af8c'},name:'Criatividade & Expressão',desc:'Criar é uma forma de pensar com clareza. Produza algo todo dia.',habits:[
+    {name:'Escrever por 10 minutos',emoji:'📝',cat:'criatividade',color:'#b0af8c',freq:'diaria',weekdays:[]},
+    {name:'Arte ou música',emoji:'🎨',cat:'criatividade',color:'#7c6fa0',freq:'semanal',weekdays:[2,5]},
+    {name:'Brain dump matinal',emoji:'💭',cat:'mente',color:'#757352',freq:'diaria',weekdays:[]},
+  ]},
+  {id:'guerreiro-limpo',cat:'anti-habitos',char:{emoji:'🛡️',name:'O Guerreiro Limpo',color:'#5a9e6f'},name:'Eliminação & Anti-hábitos',desc:'Remover o que drena é tão poderoso quanto adicionar o que eleva.',habits:[
+    {name:'Zero álcool',emoji:'🚫',cat:'nutricao',color:'#bc5a45',freq:'diaria',weekdays:[]},
+    {name:'Redes sociais max 30min',emoji:'📱',cat:'mente',color:'#757352',freq:'diaria',weekdays:[]},
+    {name:'Sem compras por impulso',emoji:'💳',cat:'desenvolvimento',color:'#5a9e6f',freq:'diaria',weekdays:[]},
+    {name:'Sem junk food',emoji:'🍔',cat:'nutricao',color:'#bc5a45',freq:'diaria',weekdays:[]},
+  ]},
+  {id:'estrategista',cat:'produtividade',char:{emoji:'💰',name:'O Estrategista',color:'#e07b00'},name:'Produtividade & Finanças',desc:'Controle seu tempo e dinheiro antes que eles controlem você.',habits:[
+    {name:'Revisar orçamento semanal',emoji:'📊',cat:'desenvolvimento',color:'#f3a648',freq:'semanal',weekdays:[0]},
+    {name:'1 tarefa difícil primeiro',emoji:'⚡',cat:'mente',color:'#d97925',freq:'diaria',weekdays:[]},
+    {name:'Economizar / Investir',emoji:'💹',cat:'desenvolvimento',color:'#5a9e6f',freq:'semanal',weekdays:[1]},
+    {name:'Revisar metas da semana',emoji:'🎯',cat:'desenvolvimento',color:'#b0af8c',freq:'semanal',weekdays:[0]},
+  ]},
+];
+
+let storeCatFilter='todos';
+window.openHabitStore=function(){renderStorePackages();openModal('modal-habit-store');};
+
+function renderStorePackages(){
+  const cats=['todos','corpo','sono','mente','nutricao','espiritualidade','social','criatividade','anti-habitos','produtividade','disciplina'];
+  const catLabels={todos:'Todos',corpo:'Corpo',sono:'Sono',mente:'Mente',nutricao:'Nutrição',espiritualidade:'Espiritual',social:'Social',criatividade:'Criatividade','anti-habitos':'Anti-hábitos',produtividade:'Produtividade',disciplina:'Disciplina'};
+  const tabsEl=document.getElementById('store-cat-tabs');tabsEl.innerHTML='';
+  cats.forEach(c=>{const btn=document.createElement('button');btn.className='store-cat-tab'+(storeCatFilter===c?' active':'');btn.textContent=catLabels[c]||c;btn.onclick=()=>{storeCatFilter=c;renderStorePackages();};tabsEl.appendChild(btn);});
+  const listEl=document.getElementById('store-packages-list');listEl.innerHTML='';
+  const filtered=HABIT_PACKAGES.filter(p=>storeCatFilter==='todos'||p.cat===storeCatFilter);
+  if(!filtered.length){listEl.innerHTML=`<div style="text-align:center;padding:32px;font-family:'Crimson Pro',serif;color:var(--khaki);font-style:italic">Nenhum pacote nesta categoria.</div>`;return;}
+  filtered.forEach(pkg=>{
+    const already=pkg.habits.every(hd=>appDB.habits.some(h=>h.name.toLowerCase()===hd.name.toLowerCase()));
+    const card=document.createElement('div');card.className='store-pkg-card';
+    const chips=pkg.habits.map(h=>`<span class="store-habit-chip">${h.emoji} ${h.name}</span>`).join('');
+    card.innerHTML=`<div class="store-pkg-header"><div class="store-char" style="background:${pkg.char.color}22">${pkg.char.emoji}</div><div><div class="store-pkg-name">${pkg.name}</div><div class="store-pkg-char" style="color:${pkg.char.color}">${pkg.char.name}</div></div></div><div class="store-pkg-desc">${pkg.desc}</div><div class="store-habit-chips">${chips}</div><button class="store-add-btn" style="background:${already?'var(--bg4)':pkg.char.color};opacity:${already?0.7:1}" onclick="addHabitPackage('${pkg.id}')">${already?'✓ Já adicionado':'＋ Adicionar pacote'}</button>`;
+    listEl.appendChild(card);
+  });
+}
+
+window.addHabitPackage=function(pkgId){
+  const pkg=HABIT_PACKAGES.find(p=>p.id===pkgId);if(!pkg)return;
+  let added=0;
+  pkg.habits.forEach(hd=>{
+    if(!appDB.habits.some(h=>h.name.toLowerCase()===hd.name.toLowerCase())){
+      appDB.habits.push({id:uid(),name:hd.name,emoji:hd.emoji,cat:hd.cat,color:hd.color,freq:hd.freq,weekdays:hd.weekdays||[],active:true,xp:10,createdAt:Date.now(),momentumScore:0,momentumHistory:[],momentumMilestones:[],lastActiveDate:''});
+      added++;
+    }
+  });
+  saveDB();closeModal('modal-habit-store');renderHabitos();renderHomeHabits();
+  showToast(added>0?`✓ ${added} hábito${added>1?'s':''} adicionado${added>1?'s':''}!`:'Todos os hábitos já existem na sua lista',3000);
+};
+
 // HÁBITOS SCREEN
-window.renderHabitos=function(){renderHabitsList();};
-function renderHabitsList(){const body=document.getElementById('hab-body');body.innerHTML='';const key=todayKey();const todayLog=(appDB.logs[key]&&appDB.logs[key].habits)||{};const todayDate=new Date();const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,todayDate));const doneCount=due.filter(h=>todayLog[h.id]).length;if(due.length>0){document.getElementById('hab-summary-text').innerHTML=`<strong>${doneCount}</strong> de <strong>${due.length}</strong> concluídos`;document.getElementById('hab-prog-fill').style.width=Math.round((doneCount/due.length)*100)+'%';}else{document.getElementById('hab-summary-text').textContent='Nenhum hábito para este dia';document.getElementById('hab-prog-fill').style.width='0%';}if(!appDB.habits.length){body.innerHTML=`<div class="hab-empty"><div class="hab-empty-icon">🎯</div><div class="hab-empty-title">Nenhum hábito ainda</div><div class="hab-empty-sub">Toque em + para criar seu primeiro hábito.</div><button class="btn btn-primary" style="width:auto;margin-top:8px" onclick="openHabitForm(null)">＋ Criar hábito</button></div>`;return;}const byCat={};appDB.habits.forEach(h=>{const cat=h.cat||'outros';if(!byCat[cat])byCat[cat]=[];byCat[cat].push(h);});Object.entries(byCat).forEach(([cat,habits])=>{const cfg=CAT_CONFIG[cat]||{label:cat,emoji:'📌',color:'var(--khaki)'};const hdr=document.createElement('div');hdr.className='hab-cat-header';hdr.innerHTML=`${cfg.emoji} ${cfg.label}`;hdr.style.color=cfg.color;body.appendChild(hdr);habits.forEach((h,idx)=>{const isDue=h.active&&isHabitDue(h,todayDate);const done=!!todayLog[h.id];const sc=h.momentumScore||0;const mCol=getMomentumColor(sc);const mLbl=getMomentumLabel(sc);const catCfg=CAT_CONFIG[h.cat]||{label:h.cat,color:'var(--khaki)'};const row=document.createElement('div');row.className='full-habit-row'+(done?' done':'')+((!h.active||!isDue)?' inactive':'');row.style.animationDelay=(idx*0.04)+'s';row.style.borderLeftColor=done?h.color:'transparent';row.innerHTML=`<div class="fh-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event)">✓</div><div class="fh-info"><div class="fh-name">${h.emoji||'📌'} ${h.name}</div><div style="display:flex;align-items:center;gap:6px;margin:4px 0 3px"><div style="flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${mCol};border-radius:99px;transition:width 0.4s ease"></div></div><span style="font-size:9px;font-weight:700;color:${mCol}">${sc}</span><span style="font-size:9px;color:var(--khaki)">— ${mLbl}</span></div><div class="fh-meta"><span class="fh-tag" style="border-color:${catCfg.color}33;color:${catCfg.color}">${catCfg.label}</span>${h.time?`<span class="fh-time">⏰ ${h.time}</span>`:''}<span class="fh-freq">${FREQ_LABEL[h.freq]||'Diária'}</span>${!h.active?'<span class="fh-freq" style="color:var(--terra)">Inativo</span>':''}${h.active&&!isDue?'<span class="fh-freq" style="color:var(--khaki)">Fora do ciclo</span>':''}</div></div><button class="fh-edit" onclick="openHabitForm('${h.id}',event)">⋮</button>`;body.appendChild(row);});});}
+let habViewDate=new Date();
+let habViewMode='hoje';
+window.setHabView=function(mode){
+  habViewMode=mode;
+  document.getElementById('hab-tab-hoje').classList.toggle('active',mode==='hoje');
+  document.getElementById('hab-tab-central').classList.toggle('active',mode==='central');
+  renderHabitos();
+};
+window.renderHabitos=function(){buildDaySelector();renderHabitsList();};
+function buildDaySelector(){
+  const container=document.getElementById('day-selector');
+  if(!container)return;
+  container.innerHTML='';
+  const today=new Date();today.setHours(0,0,0,0);
+  const sel=new Date(habViewDate);sel.setHours(0,0,0,0);
+  for(let i=-3;i<=3;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    const key=dateKey(d);const isToday=i===0;const isSel=d.getTime()===sel.getTime();
+    const doneCount=(appDB.logs[key]&&appDB.logs[key].habits)?Object.keys(appDB.logs[key].habits).length:0;
+    const btn=document.createElement('button');
+    btn.className='day-btn'+(isToday?' today':'')+(isSel?' selected':'');
+    btn.innerHTML=`<div class="day-name">${PT_DAYS_SHORT[d.getDay()]}</div><div class="day-num">${d.getDate()}</div><div class="day-dot ${doneCount>0&&!isSel?'has-done':''}"></div>`;
+    btn.onclick=(()=>{const dd=new Date(d);return()=>{habViewDate=dd;buildDaySelector();renderHabitsList();}})();
+    container.appendChild(btn);
+  }
+}
+function renderHabitsList(){
+  const body=document.getElementById('hab-body');body.innerHTML='';
+  if(habViewMode==='central'){renderHabitManagement(body);return;}
+  const selDate=new Date(habViewDate);selDate.setHours(12,0,0,0);
+  const key=dateKey(selDate);
+  const dayLog=(appDB.logs[key]&&appDB.logs[key].habits)||{};
+  const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,selDate));
+  const doneCount=due.filter(h=>dayLog[h.id]).length;
+  if(due.length>0){
+    document.getElementById('hab-summary-text').innerHTML=`<strong>${doneCount}</strong> de <strong>${due.length}</strong> concluídos`;
+    document.getElementById('hab-prog-fill').style.width=Math.round((doneCount/due.length)*100)+'%';
+  }else{
+    document.getElementById('hab-summary-text').textContent='Dia livre';
+    document.getElementById('hab-prog-fill').style.width='0%';
+  }
+  if(!appDB.habits.length){
+    body.innerHTML=`<div class="hab-empty"><div class="hab-empty-icon">🎯</div><div class="hab-empty-title">Nenhum hábito ainda</div><div class="hab-empty-sub">Toque em + para criar ou use a loja 🛍.</div><button class="btn btn-primary" style="width:auto;margin-top:8px" onclick="openHabitForm(null)">＋ Criar hábito</button></div>`;
+    return;
+  }
+  if(!due.length){
+    body.innerHTML=`<div class="hab-empty"><div class="hab-empty-icon">✅</div><div class="hab-empty-title">Dia livre</div><div class="hab-empty-sub">Nenhum hábito programado para este dia. Use a Central ⚙️ para gerenciar todos.</div></div>`;
+    return;
+  }
+  const byCat={};due.forEach(h=>{const cat=h.cat||'outros';if(!byCat[cat])byCat[cat]=[];byCat[cat].push(h);});
+  Object.entries(byCat).forEach(([cat,habits])=>{
+    const cfg=CAT_CONFIG[cat]||{label:cat,emoji:'📌',color:'var(--khaki)'};
+    const hdr=document.createElement('div');hdr.className='hab-cat-header';hdr.innerHTML=`${cfg.emoji} ${cfg.label}`;hdr.style.color=cfg.color;body.appendChild(hdr);
+    habits.forEach((h,idx)=>{
+      const done=!!dayLog[h.id];
+      const sc=h.momentumScore||0;const mCol=getMomentumColor(sc);const mLbl=getMomentumLabel(sc);
+      const catCfg=CAT_CONFIG[h.cat]||{label:h.cat,color:'var(--khaki)'};
+      const row=document.createElement('div');row.className='full-habit-row'+(done?' done':'');
+      row.style.animationDelay=(idx*0.04)+'s';row.style.borderLeftColor=done?h.color:'transparent';
+      row.innerHTML=`<div class="fh-check" style="border-color:${done?h.color:'var(--border2)'};${done?'background:'+h.color+';color:var(--cream)':''}" onclick="toggleHabit('${h.id}',event,'${key}')">✓</div><div class="fh-info"><div class="fh-name">${h.emoji||'📌'} ${h.name}</div><div style="display:flex;align-items:center;gap:6px;margin:4px 0 3px"><div style="flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden"><div style="height:100%;width:${sc}%;background:${mCol};border-radius:99px;transition:width 0.4s ease"></div></div><span style="font-size:9px;font-weight:700;color:${mCol}">${sc}</span><span style="font-size:9px;color:var(--khaki)">— ${mLbl}</span></div><div class="fh-meta"><span class="fh-tag" style="border-color:${catCfg.color}33;color:${catCfg.color}">${catCfg.label}</span><span class="fh-freq">${FREQ_LABEL[h.freq]||'Diária'}</span></div></div><button class="fh-edit" onclick="openHabitForm('${h.id}',event)">⋮</button>`;
+      body.appendChild(row);
+    });
+  });
+}
+function renderHabitManagement(body){
+  document.getElementById('hab-summary-text').textContent='Todos os hábitos';
+  document.getElementById('hab-prog-fill').style.width='0%';
+  if(!appDB.habits.length){body.innerHTML=`<div class="hab-empty"><div class="hab-empty-icon">🎯</div><div class="hab-empty-title">Nenhum hábito ainda</div><div class="hab-empty-sub">Toque em + ou abra a loja 🛍 para começar.</div></div>`;return;}
+  const byCat={};appDB.habits.forEach(h=>{const cat=h.cat||'outros';if(!byCat[cat])byCat[cat]=[];byCat[cat].push(h);});
+  Object.entries(byCat).forEach(([cat,habits])=>{
+    const cfg=CAT_CONFIG[cat]||{label:cat,emoji:'📌',color:'var(--khaki)'};
+    const hdr=document.createElement('div');hdr.className='hab-cat-header';hdr.innerHTML=`${cfg.emoji} ${cfg.label}`;hdr.style.color=cfg.color;body.appendChild(hdr);
+    habits.forEach((h,idx)=>{
+      const catCfg=CAT_CONFIG[h.cat]||{color:'var(--khaki)',label:h.cat||'?'};
+      const WD=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+      const freqDesc=h.freq==='semanal'&&h.weekdays&&h.weekdays.length?WD.filter((_,i)=>h.weekdays.includes(i)).join(', '):FREQ_LABEL[h.freq]||'Diária';
+      const row=document.createElement('div');
+      row.className='mgmt-habit-row'+(h.active?'':' inactive');
+      row.style.animationDelay=(idx*0.04)+'s';
+      row.innerHTML=`<div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">${h.emoji||'📌'}</div><div class="mgmt-habit-info"><div class="mgmt-habit-name">${h.name}</div><div class="mgmt-habit-freq"><span style="color:${catCfg.color}">${catCfg.label}</span> · ${freqDesc}${!h.active?' · <span style="color:var(--terra)">Inativo</span>':''}</div></div><button class="fh-edit" onclick="openHabitForm('${h.id}',event)">⋮</button>`;
+      body.appendChild(row);
+    });
+  });
+}
 
 // HABIT FORM
 const EMOJIS=['💧','💪','😴','📚','🧘','🏃','🥗','🍎','☀️','🎯','✍️','🧠','💊','🚴','🏋️','🎨','🎵','📖','🧹','💤','🛁','🌿','🍵','☕','🌅','🌙','⚡','🔥','🏆','❤️'];
@@ -1112,8 +1361,8 @@ window.selectFreq=function(el){document.querySelectorAll('.freq-btn[data-freq]')
 window.toggleWeekday=function(el){el.classList.toggle('selected');const wd=parseInt(el.dataset.wd);if(el.classList.contains('selected')){if(!hfWeekdays.includes(wd))hfWeekdays.push(wd);}else hfWeekdays=hfWeekdays.filter(x=>x!==wd);};
 window.selectColor=function(el){document.querySelectorAll('.color-opt').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');hfColor=el.dataset.color;};
 window.toggleHabitActive=function(){hfActive=!hfActive;const t=document.getElementById('hf-active-toggle');const ball=t.children[0];t.style.background=hfActive?'var(--orange)':'var(--bg4)';ball.style.right=hfActive?'3px':'auto';ball.style.left=hfActive?'auto':'3px';};
-window.openHabitForm=function(id,e){if(e)e.stopPropagation();editingHabitId=id;hfEmoji='💧';hfColor='#d97925';hfFreq='diaria';hfCat='corpo';hfActive=true;hfWeekdays=[];document.getElementById('hf-name').value='';document.getElementById('hf-time').value='';document.getElementById('hf-weekdays-wrap').style.display='none';const ep=document.getElementById('emoji-picker');ep.querySelectorAll('.emoji-opt').forEach(x=>x.classList.remove('selected'));ep.children[0]&&ep.children[0].classList.add('selected');const cg=document.getElementById('hf-cat-grid');cg.querySelectorAll('.cat-sel-btn').forEach(x=>{x.classList.remove('selected');x.style.background='';});cg.children[0]&&(()=>{cg.children[0].classList.add('selected');cg.children[0].style.background=CAT_CONFIG.corpo.color+'22';})();document.querySelectorAll('.freq-btn[data-freq]').forEach(b=>b.classList.remove('selected'));document.querySelector('.freq-btn[data-freq="diaria"]').classList.add('selected');document.querySelectorAll('.color-opt').forEach(x=>x.classList.remove('selected'));document.querySelector('.color-opt[data-color="#d97925"]').classList.add('selected');const t=document.getElementById('hf-active-toggle');t.style.background='var(--orange)';t.children[0].style.right='3px';t.children[0].style.left='auto';document.getElementById('hf-delete-wrap').style.display='none';if(id){const h=appDB.habits.find(x=>x.id===id);if(!h)return;document.getElementById('habit-form-title').textContent='Editar Hábito';document.getElementById('hf-name').value=h.name||'';document.getElementById('hf-time').value=h.time||'';hfEmoji=h.emoji||'💧';hfColor=h.color||'#d97925';hfFreq=h.freq||'diaria';hfCat=h.cat||'corpo';hfActive=h.active!==false;hfWeekdays=[...(h.weekdays||[])];ep.querySelectorAll('.emoji-opt').forEach(x=>{x.classList.remove('selected');if(x.textContent===hfEmoji)x.classList.add('selected');});cg.querySelectorAll('.cat-sel-btn').forEach(x=>{x.classList.remove('selected');x.style.background='';if(x.dataset.cat===hfCat){x.classList.add('selected');x.style.background=(CAT_CONFIG[hfCat]?.color||'var(--orange)')+'22';}});document.querySelectorAll('.freq-btn[data-freq]').forEach(b=>b.classList.remove('selected'));const fb=document.querySelector(`.freq-btn[data-freq="${hfFreq}"]`);if(fb)fb.classList.add('selected');if(hfFreq==='semanal'){document.getElementById('hf-weekdays-wrap').style.display='flex';document.querySelectorAll('#hf-weekdays .freq-btn').forEach(b=>{b.classList.remove('selected');if(hfWeekdays.includes(parseInt(b.dataset.wd)))b.classList.add('selected');});}document.querySelectorAll('.color-opt').forEach(x=>{x.classList.remove('selected');if(x.dataset.color===hfColor)x.classList.add('selected');});const t2=document.getElementById('hf-active-toggle');t2.style.background=hfActive?'var(--orange)':'var(--bg4)';t2.children[0].style.right=hfActive?'3px':'auto';t2.children[0].style.left=hfActive?'auto':'3px';document.getElementById('hf-delete-wrap').style.display='block';}else document.getElementById('habit-form-title').textContent='Novo Hábito';openModal('modal-habit-form');};
-window.saveHabit=function(){const name=document.getElementById('hf-name').value.trim();if(!name){showToast('❗ Digite o nome do hábito');return;}if(editingHabitId){const h=appDB.habits.find(x=>x.id===editingHabitId);if(h){h.name=name;h.emoji=hfEmoji;h.cat=hfCat;h.color=hfColor;h.freq=hfFreq;h.time=document.getElementById('hf-time').value;h.weekdays=[...hfWeekdays];h.active=hfActive;}showToast('✓ Hábito atualizado!');}else{appDB.habits.push({id:uid(),name,emoji:hfEmoji,cat:hfCat,color:hfColor,freq:hfFreq,time:document.getElementById('hf-time').value,weekdays:[...hfWeekdays],active:hfActive,xp:10,createdAt:Date.now()});showToast('✓ Hábito criado! 🔥');}saveDB();closeModal('modal-habit-form');renderHabitos();renderHomeHabits();};
+window.openHabitForm=function(id,e){if(e)e.stopPropagation();editingHabitId=id;hfEmoji='💧';hfColor='#d97925';hfFreq='diaria';hfCat='corpo';hfActive=true;hfWeekdays=[];document.getElementById('hf-name').value='';document.getElementById('hf-weekdays-wrap').style.display='none';const ep=document.getElementById('emoji-picker');ep.querySelectorAll('.emoji-opt').forEach(x=>x.classList.remove('selected'));ep.children[0]&&ep.children[0].classList.add('selected');const cg=document.getElementById('hf-cat-grid');cg.querySelectorAll('.cat-sel-btn').forEach(x=>{x.classList.remove('selected');x.style.background='';});cg.children[0]&&(()=>{cg.children[0].classList.add('selected');cg.children[0].style.background=CAT_CONFIG.corpo.color+'22';})();document.querySelectorAll('.freq-btn[data-freq]').forEach(b=>b.classList.remove('selected'));document.querySelector('.freq-btn[data-freq="diaria"]').classList.add('selected');document.querySelectorAll('.color-opt').forEach(x=>x.classList.remove('selected'));document.querySelector('.color-opt[data-color="#d97925"]').classList.add('selected');const t=document.getElementById('hf-active-toggle');t.style.background='var(--orange)';t.children[0].style.right='3px';t.children[0].style.left='auto';document.getElementById('hf-delete-wrap').style.display='none';if(id){const h=appDB.habits.find(x=>x.id===id);if(!h)return;document.getElementById('habit-form-title').textContent='Editar Hábito';document.getElementById('hf-name').value=h.name||'';hfEmoji=h.emoji||'💧';hfColor=h.color||'#d97925';hfFreq=h.freq||'diaria';hfCat=h.cat||'corpo';hfActive=h.active!==false;hfWeekdays=[...(h.weekdays||[])];ep.querySelectorAll('.emoji-opt').forEach(x=>{x.classList.remove('selected');if(x.textContent===hfEmoji)x.classList.add('selected');});cg.querySelectorAll('.cat-sel-btn').forEach(x=>{x.classList.remove('selected');x.style.background='';if(x.dataset.cat===hfCat){x.classList.add('selected');x.style.background=(CAT_CONFIG[hfCat]?.color||'var(--orange)')+'22';}});document.querySelectorAll('.freq-btn[data-freq]').forEach(b=>b.classList.remove('selected'));const fb=document.querySelector(`.freq-btn[data-freq="${hfFreq}"]`);if(fb)fb.classList.add('selected');if(hfFreq==='semanal'){document.getElementById('hf-weekdays-wrap').style.display='flex';document.querySelectorAll('#hf-weekdays .freq-btn').forEach(b=>{b.classList.remove('selected');if(hfWeekdays.includes(parseInt(b.dataset.wd)))b.classList.add('selected');});}document.querySelectorAll('.color-opt').forEach(x=>{x.classList.remove('selected');if(x.dataset.color===hfColor)x.classList.add('selected');});const t2=document.getElementById('hf-active-toggle');t2.style.background=hfActive?'var(--orange)':'var(--bg4)';t2.children[0].style.right=hfActive?'3px':'auto';t2.children[0].style.left=hfActive?'auto':'3px';document.getElementById('hf-delete-wrap').style.display='block';}else document.getElementById('habit-form-title').textContent='Novo Hábito';openModal('modal-habit-form');};
+window.saveHabit=function(){const name=document.getElementById('hf-name').value.trim();if(!name){showToast('❗ Digite o nome do hábito');return;}if(editingHabitId){const h=appDB.habits.find(x=>x.id===editingHabitId);if(h){h.name=name;h.emoji=hfEmoji;h.cat=hfCat;h.color=hfColor;h.freq=hfFreq;h.weekdays=[...hfWeekdays];h.active=hfActive;}showToast('✓ Hábito atualizado!');}else{appDB.habits.push({id:uid(),name,emoji:hfEmoji,cat:hfCat,color:hfColor,freq:hfFreq,weekdays:[...hfWeekdays],active:hfActive,xp:10,createdAt:Date.now(),momentumScore:0,momentumHistory:[],momentumMilestones:[],lastActiveDate:''});showToast('✓ Hábito criado! 🔥');}saveDB();closeModal('modal-habit-form');renderHabitos();renderHomeHabits();};
 window.deleteHabit=function(){if(!editingHabitId)return;appDB.habits=appDB.habits.filter(x=>x.id!==editingHabitId);saveDB();closeModal('modal-habit-form');showToast('🗑 Hábito excluído');renderHabitos();renderHomeHabits();};
 
 // PROGRESSO
@@ -1136,6 +1385,33 @@ if(sortedH.length){mHTML+=`<div class="momentum-list">`;sortedH.forEach(h=>{cons
 const allMs=activeH.flatMap(h=>(h.momentumMilestones||[]).map(m=>({...m,hn:h.emoji+' '+h.name}))).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
 if(allMs.length){mHTML+=`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)"><div style="font-size:10px;font-weight:700;letter-spacing:0.15em;color:var(--khaki);text-transform:uppercase;margin-bottom:8px">Marcos recentes</div>`;allMs.forEach(m=>{const icon=m.score>=100?'🔵':m.score>=80?'💥':'🔥';mHTML+=`<div style="font-size:12px;color:var(--beige);padding:4px 0">${icon} <strong>${m.hn}</strong> atingiu ${m.score} · <span style="color:var(--khaki)">${m.date}</span></div>`;});mHTML+=`</div>`;}
 momSec.innerHTML=mHTML;body.appendChild(momSec);
+// ── Correlações ──
+(function(){
+  function habRate(k){const dateObj=new Date(k+'T12:00:00');const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,dateObj));if(!due.length)return null;const log=(appDB.logs[k]&&appDB.logs[k].habits)||{};return due.filter(h=>log[h.id]).length/due.length;}
+  const allMDays=Object.keys(appDB.checkins).filter(k=>{const ci=appDB.checkins[k];return ci&&ci.morning&&habRate(k)!==null;});
+  const corrSec=document.createElement('div');corrSec.className='card';
+  let corrHTML=`<div class="resumo-section-title">💡 Padrões descobertos</div>`;
+  if(allMDays.length<5){
+    corrHTML+=`<div style="font-family:'Crimson Pro',serif;font-size:14px;color:var(--khaki);text-align:center;padding:12px 0;line-height:1.7">Complete mais <strong style="color:var(--orange2)">${5-allMDays.length} check-in${5-allMDays.length!==1?'s':''} matinal${5-allMDays.length!==1?'is':''}</strong> para desbloquear insights personalizados sobre seus padrões.<br><span style="font-size:11px;opacity:0.6">Único recurso assim no mercado.</span></div>`;
+  }else{
+    const insights=[];
+    function buildInsight(days,valFn,splitFn,icon,highDesc,lowDesc,conclusion){
+      const withVal=days.filter(k=>valFn(k)!=null);if(withVal.length<5)return;
+      const high=withVal.filter(k=>splitFn(k));const low=withVal.filter(k=>!splitFn(k));
+      if(high.length<2||low.length<2)return;
+      const hR=Math.round(high.reduce((s,k)=>s+habRate(k),0)/high.length*100);
+      const lR=Math.round(low.reduce((s,k)=>s+habRate(k),0)/low.length*100);
+      const diff=hR-lR;insights.push({icon,title:`${highDesc}: ${hR}% dos hábitos`,sub:`${lowDesc}: ${lR}%. ${diff>15?conclusion[0]:diff<-15?conclusion[1]:conclusion[2]}`,hR,lR,hLabel:highDesc,lLabel:lowDesc});
+    }
+    const ci=k=>appDB.checkins[k].morning;
+    buildInsight(allMDays,k=>ci(k).sleep,k=>ci(k).sleep>=7,'😴','7h+ de sono','Menos de 7h',['Dormir mais impacta diretamente sua consistência.','Você executa bem independente do sono — força mental.','Seu desempenho é estável. Continue monitorando.']);
+    buildInsight(allMDays,k=>ci(k).energy,k=>ci(k).energy>=4,'⚡','Energia alta (4-5)','Energia baixa (1-3)',['Alta energia prediz maior adesão aos hábitos.','Você se mantém consistente mesmo com energia baixa — resiliência real.','Sua energia não define sua execução — ótimo sinal.']);
+    buildInsight(allMDays,k=>ci(k).mood,k=>ci(k).mood>=4,'😊','Bom humor (4-5)','Humor baixo (1-3)',['Humor influencia sua execução. Cuide do bem-estar emocional.','Você mantém consistência independente do humor — disciplina excepcional.','Sua execução é estável em diferentes estados de humor.']);
+    if(!insights.length){corrHTML+=`<div style="font-family:'Crimson Pro',serif;font-size:14px;color:var(--khaki);text-align:center;padding:12px 0">Continue registrando check-ins matinais para revelar padrões mais ricos.</div>`;}
+    else{corrHTML+=`<div style="font-family:'Crimson Pro',serif;font-size:12px;color:var(--khaki);margin-bottom:14px;line-height:1.5">Com base nos seus dados reais — nenhum concorrente faz isso de forma integrada.</div>`;insights.forEach(c=>{corrHTML+=`<div class="corr-insight"><div class="corr-icon">${c.icon}</div><div class="corr-body"><div class="corr-title">${c.title}</div><div class="corr-sub">${c.sub}</div><div class="corr-bars"><div class="corr-bar-wrap"><div class="corr-bar-label">${c.hLabel}</div><div class="corr-bar-track"><div class="corr-bar-fill" style="width:${c.hR}%;background:var(--green)"></div></div><div class="corr-bar-val">${c.hR}%</div></div><div class="corr-bar-wrap"><div class="corr-bar-label">${c.lLabel}</div><div class="corr-bar-track"><div class="corr-bar-fill" style="width:${c.lR}%;background:var(--bg4)"></div></div><div class="corr-bar-val">${c.lR}%</div></div></div></div></div>`;});}
+  }
+  corrSec.innerHTML=corrHTML;body.appendChild(corrSec);
+})();
 // ── Resumo semanal ──
 let sS=0,eS=0,mS=0,nCI=0,weekDone=0,weekTotal=0;
 for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d);const ci=appDB.checkins[k];if(ci&&ci.morning){if(ci.morning.sleep)sS+=ci.morning.sleep;if(ci.morning.energy)eS+=ci.morning.energy;if(ci.morning.mood)mS+=ci.morning.mood;nCI++;}const due=appDB.habits.filter(h=>h.active&&isHabitDue(h,d));weekTotal+=due.length;const log=(appDB.logs[k]&&appDB.logs[k].habits)||{};weekDone+=due.filter(h=>log[h.id]).length;}
@@ -1213,7 +1489,7 @@ document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('clic
 
 // TABS
 const tabMap={home:'screen-home',habitos:'screen-habitos',progresso:'screen-progresso',perfil:'screen-perfil'};
-window.showTab=function(tab){Object.entries(tabMap).forEach(([k,sid])=>{const s=document.getElementById(sid);const n=document.getElementById('nav-'+k);if(k===tab){s.classList.add('active');if(n)n.classList.add('active');}else{s.classList.remove('active');if(n)n.classList.remove('active');}});document.getElementById('fab-add-habit').classList.toggle('visible',tab==='habitos');if(tab==='home')renderHome();if(tab==='habitos'){renderHabitos();}if(tab==='progresso'){selectedCalDay=null;calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderProgresso();}if(tab==='perfil')renderPerfil();};
+window.showTab=function(tab){Object.entries(tabMap).forEach(([k,sid])=>{const s=document.getElementById(sid);const n=document.getElementById('nav-'+k);if(k===tab){s.classList.add('active');if(n)n.classList.add('active');}else{s.classList.remove('active');if(n)n.classList.remove('active');}});document.getElementById('fab-add-habit').classList.toggle('visible',tab==='habitos');if(tab==='home')renderHome();if(tab==='habitos'){habViewDate=new Date();habViewMode='hoje';document.getElementById('hab-tab-hoje')&&document.getElementById('hab-tab-hoje').classList.add('active');document.getElementById('hab-tab-central')&&document.getElementById('hab-tab-central').classList.remove('active');renderHabitos();}if(tab==='progresso'){selectedCalDay=null;calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderProgresso();}if(tab==='perfil')renderPerfil();};
 
 // Bind botão de login com event listener direto
 document.addEventListener('DOMContentLoaded', function() {
